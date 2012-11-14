@@ -1,4 +1,4 @@
-compile = "click.c mapping.c walking.c -lm"
+compile = "simulation.c mapping.c walking.c -lm"
 
 rebootargs = "uwa1.map"
 
