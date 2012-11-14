@@ -5,7 +5,13 @@ rebootargs = "uwa1.map"
 drawlinks = true
 mapwidth=135
 mapheight=110
-//mapscale=0.125
+mapscale=0.125
+
+accesspoint uwa{
+	wlan{
+		nicaddr	= 00:90:27:62:83:F3
+	}
+}
 mobile phone1{
 	wlan{
 		nicaddr	= 00:90:27:62:83:F4
