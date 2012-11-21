@@ -8,6 +8,7 @@ mapheight=110
 mapscale=0.125
 
 accesspoint uwa{
+	winx=11, winy=42
 	wlan{
 		nicaddr	= 00:90:27:62:83:F3
 	}

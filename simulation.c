@@ -29,8 +29,8 @@ EVENT_HANDLER(ap){
   static package frame;
   size_t	len = sizeof(frame);
 
-	frame.nodenumber = nodeinfo.nodenumber;
-	  strcpy(frame.message,beacon);
+  frame.nodenumber = nodeinfo.nodenumber;
+  strcpy(frame.message,beacon);
   printf("I am an accesspoint with one wlan link\n");
 
   CNET_write_physical_reliable(1,&frame,&len);
@@ -41,10 +41,17 @@ EVENT_HANDLER(reboot_node){
   char**	argv = (char**) data;
 
   if(argv[0]){
+
+	//  READ AND DRAW THE MAP
     readmap(argv[0]);
-	
+
+	//  WE REQUIRE EACH NODE TO HAVE A DIFFERENT STREAM OF RANDOM NUMBERS
+	CNET_srand(nodeinfo.time_of_day.sec + nodeinfo.nodenumber);
+
     //FUNCTIONS FOR ACCESS POINTS
     if(nodeinfo.nodetype == NT_ACCESSPOINT) {
+	 // init_walking();
+	 // start_walking();
       CNET_set_handler(EV_BEACON, ap, 0);
       CNET_start_timer(EV_BEACON, (CnetTime)1000000, 0);
     }
