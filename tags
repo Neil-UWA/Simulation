@@ -1,0 +1,18 @@
+EVENT_HANDLER	simulation.c	/^EVENT_HANDLER(click){$/
+OBJECT	mapping.c	/^} OBJECT;$/
+SCALE	mapping.c	/^#define	SCALE(p)	((int)((p) \/ mapscale))$/
+add_object	mapping.c	/^static void add_object(char *text, double x0, doub/
+am_walking	walking.c	/^bool am_walking(void)$/
+choose_position	mapping.c	/^void choose_position(CnetPosition *new, int maxdis/
+draw_objects	mapping.c	/^static void draw_objects(void)$/
+draw_walk	mapping.c	/^void draw_walk(CnetPosition *now, CnetPosition *ne/
+init_walking	walking.c	/^void init_walking(void)$/
+intersect	mapping.c	/^static bool intersect(	double x0, double y0, doubl/
+my_WLAN_model	wlan.c	/^static WLANRESULT my_WLAN_model(WLANSIGNAL *sig)$/
+package	simulation.c	/^}package;$/
+readmap	mapping.c	/^void readmap(const char *mapfile)$/
+start_walking	walking.c	/^void start_walking(void)$/
+stop_walking	walking.c	/^void stop_walking(void)$/
+through_N_objects	mapping.c	/^int through_N_objects(CnetPosition S, CnetPosition/
+through_an_object	mapping.c	/^bool through_an_object(CnetPosition S, CnetPositio/
+trim	mapping.c	/^static char *trim(char *line)$/
