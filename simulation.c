@@ -1,28 +1,28 @@
 #include <cnet.h>
 #include <time.h>
 #include <string.h>
-
 #include "mapping.h"
 #include "walking.h"
 
+/* TIMERS */
 #define	EV_TALKING	EV_TIMER1
 #define EV_BEACON	EV_TIMER2
 
 #define MAX_SIZE 50
+#define	SIGNAL_LOSS_PER_OBJECT		12.0		// dBm
 
+typedef struct{
+	char message[MAX_SIZE];
+	int  nodenumber;
+}PACKAGE;
 //USER DEFINED WLAN MODEL
 static WLANRESULT my_WLAN_model(WLANSIGNAL *sig);
 
 //static char message[] = "hello";
 static char beacon[] = "I am a beacon frame";
 
-typedef struct{
-	char	message[MAX_SIZE];
-	//int		nodetype; //TYPE OF THE NODE
-	int		nodenumber;
-}package;
-
-EVENT_HANDLER(click){
+/* FUNCTIONS FOR CLIENTS */
+EVENT_HANDLER(client){
   time_t  now;
   time(&now);
   printf("hello\n");    
@@ -30,8 +30,9 @@ EVENT_HANDLER(click){
   CNET_start_timer(EV_TALKING, (CnetTime)2000000, 0);
 }
 
+/* FUNCTIONS FOR ACCESS POINTS */
 EVENT_HANDLER(ap){
-  static package frame;
+  static 	PACKAGE frame;
   size_t	len = sizeof(frame);
 
   frame.nodenumber = nodeinfo.nodenumber;
@@ -67,14 +68,14 @@ EVENT_HANDLER(reboot_node){
     if(nodeinfo.nodetype == NT_MOBILE) {
 	  init_walking();
 	  start_walking();
-      CNET_set_handler(EV_TALKING, click, 0);
+      CNET_set_handler(EV_TALKING, client, 0);
       CNET_start_timer(EV_TALKING, (CnetTime)1000000, 0);
     }
   }
 }
 
-#define	SIGNAL_LOSS_PER_OBJECT		12.0		// dBm
-
+//TODO
+/* USER DEFINED WLAN MODE */
 static WLANRESULT my_WLAN_model(WLANSIGNAL *sig)
 {
     int		dx, dy;
