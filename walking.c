@@ -41,7 +41,7 @@ static EVENT_HANDLER(walker)
 
 	    newdest	= now;
 	    do {
-		choose_position(&newdest, MAX_WALK_DIST);
+		  choose_position(&newdest, MAX_WALK_DIST);
 	    } while(through_an_object(now, newdest));
 
 	    dx		= newdest.x - now.x;
@@ -63,22 +63,22 @@ static EVENT_HANDLER(walker)
 
 //  WE'RE WALKING;  DO WE STILL HAVE SOME STEPS TO TAKE?
     if(nsteps > 0) {
-	newx	+= dx;
-	newy	+= dy;
+	  newx	+= dx;
+	  newy	+= dy;
 
-	now.x	 = newx;
-	now.y	 = newy;
-	now.z	 = 0;
-	CHECK(CNET_set_position(now));
-	paused	= false;
-	--nsteps;
-	movenext = WALK_FREQUENCY;
+	  now.x	 = newx;
+	  now.y	 = newy;
+	  now.z	 = 0;
+	  CHECK(CNET_set_position(now));
+	  paused	= false;
+	  --nsteps;
+	  movenext = WALK_FREQUENCY;
     }
 //  WE'VE FINISHED WALKING, SO WE PAUSE HERE FOR A WHILE
     else {
-	paused	= true;
-	nsteps	= 0;
-	movenext = (CNET_rand() % (MAX_PAUSE-MIN_PAUSE) + MIN_PAUSE) * 1000000;
+	  paused	= true;
+	  nsteps	= 0;
+	  movenext = (CNET_rand() % (MAX_PAUSE-MIN_PAUSE) + MIN_PAUSE) * 1000000;
     }
 
 //  RESCHEDULE THIS WALKING EVENT
@@ -112,4 +112,26 @@ void stop_walking(void)
 bool am_walking(void)
 {
     return (paused == false);
+}
+
+//bool inside(CnetPosition position, OBJECT object ){
+//	
+//	return position.x>=object.x0&&position.y<=object.x1
+//			&&position.y>=object.y0&&position.y<=object.y1;;
+//}
+
+EVENT_HANDLER(walk_inside){
+	CnetPosition	now;
+	CHECK(CNET_get_position(&now, NULL));
+	printf("x = %d, y = %d\n", now.x, now.y);
+//	extern int nobjects;
+//	extern OBJECT *objects;
+//	for(int i=0;i< nobjects; i++){
+//		if(objects[i].text==NULL){
+//			if(inside(now, objects[i])){
+//				printf("I am inside a object\n");
+//			}		
+//		}	
+//	}
+	
 }

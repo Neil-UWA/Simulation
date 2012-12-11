@@ -1,47 +1,16 @@
-#include <cnet.h>
-#include <time.h>
-#include <string.h>
-#include "mapping.h"
-#include "walking.h"
+#include	<cnet.h>
+#include 	<time.h>
+#include 	<string.h>
 
-/* TIMERS */
-#define	EV_TALKING	EV_TIMER1
-#define EV_BEACON	EV_TIMER2
+#include    "client.h"
+#include    "ap.h"
+#include 	"mapping.h"
+#include 	"walking.h"
 
-#define MAX_SIZE 50
 #define	SIGNAL_LOSS_PER_OBJECT		12.0		// dBm
 
-typedef struct{
-	char message[MAX_SIZE];
-	int  nodenumber;
-}PACKAGE;
 //USER DEFINED WLAN MODEL
 static WLANRESULT my_WLAN_model(WLANSIGNAL *sig);
-
-//static char message[] = "hello";
-static char beacon[] = "I am a beacon frame";
-
-/* FUNCTIONS FOR CLIENTS */
-EVENT_HANDLER(client){
-  time_t  now;
-  time(&now);
-  printf("hello\n");    
-  printf("%s\n", ctime(&now));
-  CNET_start_timer(EV_TALKING, (CnetTime)2000000, 0);
-}
-
-/* FUNCTIONS FOR ACCESS POINTS */
-EVENT_HANDLER(ap){
-  static 	PACKAGE frame;
-  size_t	len = sizeof(frame);
-
-  frame.nodenumber = nodeinfo.nodenumber;
-  strcpy(frame.message,beacon);
-  printf("I am an accesspoint with one wlan link\n");
-
-  CNET_write_physical_reliable(1,&frame,&len);
-  CNET_start_timer(EV_BEACON, (CnetTime)2000000, 0);
-}
 
 EVENT_HANDLER(reboot_node){
   char**	argv = (char**) data;
@@ -62,6 +31,7 @@ EVENT_HANDLER(reboot_node){
 	 // start_walking();
       CNET_set_handler(EV_BEACON, ap, 0);
       CNET_start_timer(EV_BEACON, (CnetTime)1000000, 0);
+	  CNET_set_handler(EV_TIMER1, walk_inside,0);
     }
 
     //FUNCTIONS FOR MOBILE CLIENTS

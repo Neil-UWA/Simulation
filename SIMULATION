@@ -1,4 +1,4 @@
-compile = "simulation.c mapping.c walking.c -lm"
+compile = "simulation.c mapping.c walking.c ap.c client.c -lm"
 
 rebootargs = "uwa1.map"
 
@@ -6,6 +6,7 @@ drawlinks = true
 mapwidth=135
 mapheight=110
 mapscale=0.125
+mapgrid=50
 
 accesspoint uwa{
 	winx=11, winy=42

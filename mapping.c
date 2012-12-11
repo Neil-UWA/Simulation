@@ -5,14 +5,6 @@
 
 #include "mapping.h"
 
-typedef struct {
-    char	*text;
-    double	x0;
-    double	y0;
-    double	x1;
-    double	y1;
-} OBJECT;
-
 static	OBJECT	*objects	= NULL;
 static	int	nobjects	= 0;
 

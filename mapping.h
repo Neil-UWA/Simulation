@@ -1,7 +1,15 @@
-#include <cnet.h>
+//#include <cnet.h>
 
 #define	COMMENT		'#'
 #define	COLOUR_OBJECTS	"#aaaaaa"
+
+typedef struct {
+    char	*text;
+    double	x0;
+    double	y0;
+    double	x1;
+    double	y1;
+} OBJECT;
 
 //  READ THE OBJECTS ON OUR MAP FROM THE INDICATED FILE
 extern	void	readmap(const char *filenm);
@@ -17,3 +25,4 @@ extern	int	through_N_objects(CnetPosition S, CnetPosition D);
 
 //  DRAWS THE PATH TO BE TALEN BY A NODE
 extern void	draw_walk(CnetPosition *now, CnetPosition *newdest);
+
