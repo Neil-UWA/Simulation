@@ -26,3 +26,7 @@ extern	int	through_N_objects(CnetPosition S, CnetPosition D);
 //  DRAWS THE PATH TO BE TALEN BY A NODE
 extern void	draw_walk(CnetPosition *now, CnetPosition *newdest);
 
+extern bool inside(CnetPosition position, OBJECT object);
+
+void insideObject(CnetPosition position, OBJECT *cache);
+

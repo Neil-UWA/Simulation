@@ -1,4 +1,4 @@
-compile = "simulation.c mapping.c walking.c ap.c client.c -lm"
+compile = "simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
 
 rebootargs = "uwa1.map"
 
@@ -6,7 +6,7 @@ drawlinks = true
 mapwidth=135
 mapheight=110
 mapscale=0.125
-mapgrid=50
+mapgrid=5
 
 accesspoint uwa{
 	winx=11, winy=42
@@ -22,5 +22,15 @@ mobile phone1{
 mobile phone2{
 	wlan{
 		nicaddr	= 00:90:27:62:83:F6
+	}
+}
+mobile phone3{
+	wlan{
+		nicaddr	= 00:90:27:62:83:F1
+	}
+}
+mobile phone4{
+	wlan{
+		nicaddr	= 00:90:27:62:83:F8
 	}
 }

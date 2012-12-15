@@ -207,3 +207,21 @@ void choose_position(CnetPosition *new, int maxdist)
 	}
     }
 }
+
+bool inside(CnetPosition position, OBJECT object){
+	return position.x>=object.x0&&position.y<=object.x1
+			&&position.y>=object.y0&&position.y<=object.y1;;
+}
+
+void insideObject(CnetPosition position, OBJECT *cache){
+	OBJECT	*op;
+	int		n;
+
+	FOREACH_OBJECT{
+		if(inside(position, op[n])){
+			cache = &op[n];
+			printf("my position:%ld %ld\n", op[n].x0, op[n].y0);
+			break;
+		}
+	}
+}

@@ -2,7 +2,9 @@ run:
 	cnet SIMULATION
 
 update:
-	ctags *.c *.h
+	@echo "updating c tags and doxygen files"
+	ctags -dt *.c *.h
+	doxygen Doxyfile 
 
 clean:
 	rm *.cnet *.o

@@ -1,3 +1,5 @@
+/** @brief This was created by Chris Mcdonald */
+
 #include <cnet.h>
 
 #include <math.h>
@@ -114,24 +116,15 @@ bool am_walking(void)
     return (paused == false);
 }
 
-//bool inside(CnetPosition position, OBJECT object ){
-//	
-//	return position.x>=object.x0&&position.y<=object.x1
-//			&&position.y>=object.y0&&position.y<=object.y1;;
-//}
 
-EVENT_HANDLER(walk_inside){
+void walk_inside(void){
 	CnetPosition	now;
+	CnetPosition	new;
+	OBJECT			cache;
+
 	CHECK(CNET_get_position(&now, NULL));
-	printf("x = %d, y = %d\n", now.x, now.y);
-//	extern int nobjects;
-//	extern OBJECT *objects;
-//	for(int i=0;i< nobjects; i++){
-//		if(objects[i].text==NULL){
-//			if(inside(now, objects[i])){
-//				printf("I am inside a object\n");
-//			}		
-//		}	
-//	}
-	
+	insideObject(now, &cache);
+	new.x = cache.x0;
+	new.y = cache.y0;
+	(CNET_set_position(new));
 }

@@ -1,16 +1,19 @@
-#include	<cnet.h>
-#include 	<time.h>
-#include 	<string.h>
+#include <cnet.h>
+#include <time.h>
+#include <string.h>
 
-#include    "client.h"
-#include    "ap.h"
-#include 	"mapping.h"
-#include 	"walking.h"
+#include "client.h"   
+#include "common.h" 
+#include "accesspoint.h"
+#include "mapping.h"
+#include "walking.h"
 
 #define	SIGNAL_LOSS_PER_OBJECT		12.0		// dBm
 
 //USER DEFINED WLAN MODEL
 static WLANRESULT my_WLAN_model(WLANSIGNAL *sig);
+
+/* ---------------------------------------------------------------------- */
 
 EVENT_HANDLER(reboot_node){
   char**	argv = (char**) data;
@@ -24,27 +27,23 @@ EVENT_HANDLER(reboot_node){
 
 	//  WE REQUIRE EACH NODE TO HAVE A DIFFERENT STREAM OF RANDOM NUMBERS
 	CNET_srand(nodeinfo.time_of_day.sec + nodeinfo.nodenumber);
+   
+	CHECK(CNET_set_handler(EV_PHYSICALREADY, listening, 0));
 
-    //FUNCTIONS FOR ACCESS POINTS
-    if(nodeinfo.nodetype == NT_ACCESSPOINT) {
-	 // init_walking();
-	 // start_walking();
-      CNET_set_handler(EV_BEACON, ap, 0);
-      CNET_start_timer(EV_BEACON, (CnetTime)1000000, 0);
-	  CNET_set_handler(EV_TIMER1, walk_inside,0);
-    }
-
-    //FUNCTIONS FOR MOBILE CLIENTS
-    if(nodeinfo.nodetype == NT_MOBILE) {
-	  init_walking();
-	  start_walking();
-      CNET_set_handler(EV_TALKING, client, 0);
-      CNET_start_timer(EV_TALKING, (CnetTime)1000000, 0);
-    }
+	if(nodeinfo.nodetype == NT_ACCESSPOINT){
+		CHECK(CNET_set_handler(EV_BEACON, beaconing, 0));
+		CNET_start_timer(EV_BEACON, FREQUENCY, 0);
+	}else{
+		init_walking();
+		start_walking();     
+		CHECK(CNET_set_handler(EV_TALKING, client, 0));
+		CNET_start_timer(EV_TALKING, 1000000, 0);
+	}                                                         
   }
 }
 
-//TODO
+/* ---------------------------------------------------------------------- */
+
 /* USER DEFINED WLAN MODE */
 static WLANRESULT my_WLAN_model(WLANSIGNAL *sig)
 {

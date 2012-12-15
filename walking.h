@@ -5,5 +5,4 @@ extern	void	init_walking(void);
 extern	void	start_walking(void);
 extern	void	stop_walking(void);
 extern	bool	am_walking(void);
-extern	bool	inside(CnetPosition position, OBJECT object);
-extern			EVENT_HANDLER(walk_inside);
+extern	void	walk_inside(void);
