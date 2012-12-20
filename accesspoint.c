@@ -1,5 +1,5 @@
 /** 
- * @file	
+ * @file accesspoint.c	
  * @brief Acess Point Module
  */
 

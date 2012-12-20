@@ -1,5 +1,5 @@
 /** 
- * @file	
+ * @file common.c	
  * @brief Common functions that used by others
  */
 
@@ -31,5 +31,5 @@ EVENT_HANDLER(listening){
 	CHECK(CNET_read_physical(&link, (FRAME *) &frame, &length));
 	CHECK(CNET_wlan_arrival(link, &rxsignal, NULL));
 
-	printf("from node: %d\t signal: %lf, \tmessage: %s\n", frame.nodeinfo.nodenumber, rxsignal, frame.message);  	
+	fprintf(stdout, "from node: %d\t signal: %lf, \tmessage: %s\n", frame.nodeinfo.nodenumber, rxsignal, frame.message);  	
 }        

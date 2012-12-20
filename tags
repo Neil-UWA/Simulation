@@ -10,14 +10,14 @@ EV_TALKING	common.h	/^#define	EV_TALKING	EV_TIMER5$/
 EV_WALKING	walking.h	/^#define	EV_WALKING		EV_TIMER9$/
 FOREACH_OBJECT	mapping.c	/^#define	FOREACH_OBJECT	for(n=0, op=objects ; n<nob/
 FRAME	common.h	/^}FRAME;$/
-FREQUENCY	common.h	/^#define	FREQUENCY	10000 \/\/the frequence sending /
+FREQUENCY	common.h	/^#define	FREQUENCY	100000 \/\/the frequence sending/
 MAX_PAUSE	walking.c	/^#define	MAX_PAUSE	30		\/\/ in seconds$/
 MAX_SIZE	common.h	/^#define MAX_SIZE 50$/
 MAX_SPEED	walking.c	/^#define	MAX_SPEED	5		\/\/ metres per WALK_FREQUENC/
 MAX_WALK_DIST	walking.c	/^#define	MAX_WALK_DIST	100		\/\/ maximum walk from /
 MIN_PAUSE	walking.c	/^#define	MIN_PAUSE	5		\/\/ in seconds$/
 OBJECT	mapping.h	/^} OBJECT;$/
-SCALE	mapping.c	/^#define	SCALE(p)	((int)((p) \/ mapscale))$/
+SCALE	mapping.h	/^#define	SCALE(p)	((int)((p) \/ mapscale))$/
 SIGNAL_LOSS_PER_OBJECT	simulation.c	/^#define	SIGNAL_LOSS_PER_OBJECT		12.0		\/\/ dBm$/
 WALK_FREQUENCY	walking.c	/^#define	WALK_FREQUENCY	1000000		\/\/ take a step e/
 add_object	mapping.c	/^static void add_object(char *text, double x0, doub/
@@ -30,9 +30,10 @@ draw_walk	mapping.c	/^void draw_walk(CnetPosition *now, CnetPosition *ne/
 initFrame	common.c	/^FRAME initFrame(char *message, CnetPosition curren/
 init_walking	walking.c	/^void init_walking(void)$/
 inside	mapping.c	/^bool inside(CnetPosition position, OBJECT object){/
-insideObject	mapping.c	/^void insideObject(CnetPosition position, OBJECT *c/
+insideObject	mapping.c	/^bool insideObject(CnetPosition position, OBJECT *t/
 intersect	mapping.c	/^static bool intersect(	double x0, double y0, doubl/
 my_WLAN_model	simulation.c	/^static WLANRESULT my_WLAN_model(WLANSIGNAL *sig)$/
+random_choose	mapping.c	/^void random_choose(CnetPosition *newdest, OBJECT */
 readmap	mapping.c	/^void readmap(const char *mapfile)$/
 receiveCTS	client.c	/^\/\/static void receiveCTS(){ }$/
 receiveRTS	accesspoint.c	/^\/\/static void receiveRTS(){ }$/

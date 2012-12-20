@@ -13,7 +13,6 @@ static	int	nobjects	= 0;
 static	CnetPosition	mapsize;
 static	double		mapscale;
 
-#define	SCALE(p)	((int)((p) / mapscale))
 
 static void add_object(char *text, double x0, double y0, double x1, double y1)
 {
@@ -208,20 +207,52 @@ void choose_position(CnetPosition *new, int maxdist)
     }
 }
 
+/** 
+ * @brief Am I inside the given object
+ * @param position 
+ * @param object  
+ * @return true if current position is inside the given object 
+ */
 bool inside(CnetPosition position, OBJECT object){
-	return position.x>=object.x0&&position.y<=object.x1
-			&&position.y>=object.y0&&position.y<=object.y1;;
+	return (position.x>=object.x0&&position.x<=object.x1
+			&&position.y>=object.y0&&position.y<=object.y1);
 }
 
-void insideObject(CnetPosition position, OBJECT *cache){
+/** 
+ * @brief randomly choose a new destination inside the given
+ * object 
+ * @param *newdest
+ * @param *object
+ * return 
+ */
+void random_choose(CnetPosition *newdest, OBJECT *object){
+	memset(newdest, 0, sizeof(CnetPosition));
+
+	do{
+	  newdest->x  = CNET_rand() % mapsize.x;
+	  newdest->y  = CNET_rand() % mapsize.y;
+	}while(!inside(*newdest,*object));
+	printf("the random dst is %d %d\n", newdest->x, newdest->y);
+}
+
+/** 
+ * @brief which object am I in
+ * @param position
+ * @param *temp
+ * @return true if found the object am i in.
+ */
+bool insideObject(CnetPosition position, OBJECT *temp){
 	OBJECT	*op;
 	int		n;
+	bool	found = false;// haven't found the object 
 
 	FOREACH_OBJECT{
 		if(inside(position, op[n])){
-			cache = &op[n];
-			printf("my position:%ld %ld\n", op[n].x0, op[n].y0);
+			memcpy(temp, &op[n], sizeof(OBJECT));
+			found = true;
 			break;
 		}
 	}
+
+	return found;
 }

@@ -5,13 +5,27 @@ rebootargs = "uwa1.map"
 drawlinks = true
 mapwidth=135
 mapheight=110
+//icontitle="%a"
 mapscale=0.125
 mapgrid=5
 
+
 accesspoint uwa{
-	winx=11, winy=42
+	x = 11, y= 42
 	wlan{
 		nicaddr	= 00:90:27:62:83:F3
+	}
+}
+accesspoint ipod1{
+	x = 71, y= 20
+	wlan{
+		nicaddr	= 00:90:27:62:88:F3
+	}
+}
+accesspoint ipod{
+	x = 135, y = 50 
+	wlan{
+		nicaddr = 11:11:11:11:11:11
 	}
 }
 mobile phone1{
@@ -33,4 +47,9 @@ mobile phone4{
 	wlan{
 		nicaddr	= 00:90:27:62:83:F8
 	}
+}
+mobile phone5{
+	wlan{
+		nicaddr	= 00:90:27:62:83:F4
+	}	
 }

@@ -2,6 +2,7 @@
 
 #define	COMMENT		'#'
 #define	COLOUR_OBJECTS	"#aaaaaa"
+#define	SCALE(p)	((int)((p) / mapscale))
 
 typedef struct {
     char	*text;
@@ -26,7 +27,11 @@ extern	int	through_N_objects(CnetPosition S, CnetPosition D);
 //  DRAWS THE PATH TO BE TALEN BY A NODE
 extern void	draw_walk(CnetPosition *now, CnetPosition *newdest);
 
+//	AM I INSIDE AN OBJECT
 extern bool inside(CnetPosition position, OBJECT object);
 
-void insideObject(CnetPosition position, OBJECT *cache);
+//	WHICH OBJECT AM I IN
+extern bool insideObject(CnetPosition position, OBJECT *temp);
 
+//	RANDOMLY CHOOSE A DESTINATION INSIDE THE GIVEN OBJECT
+extern void random_choose(CnetPosition *newdest, OBJECT *object);

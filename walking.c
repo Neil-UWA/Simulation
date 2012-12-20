@@ -1,5 +1,8 @@
-/** @brief This was created by Chris Mcdonald */
-
+/** 
+ * @file walking.c
+ * @brief functions that realted to walking
+ * @author Chris McDonald modified by JINANG LU
+ */
 #include <cnet.h>
 
 #include <math.h>
@@ -116,15 +119,27 @@ bool am_walking(void)
     return (paused == false);
 }
 
-
 void walk_inside(void){
-	CnetPosition	now;
-	CnetPosition	new;
-	OBJECT			cache;
+	CnetPosition	current;
+	CnetPosition	dst;
+	OBJECT			temp;
 
-	CHECK(CNET_get_position(&now, NULL));
-	insideObject(now, &cache);
-	new.x = cache.x0;
-	new.y = cache.y0;
-	(CNET_set_position(new));
+	memset(&current, 0, sizeof(CnetPosition));
+	memset(&dst, 0, sizeof(CnetPosition));
+
+	CHECK(CNET_get_position(&current, NULL));
+
+	printf("current position: (%d %d)\n", current.x, current.y);
+
+	if(insideObject(current, &temp)){
+
+	  	printf("I am inside (%lf %lf %lf %lf)\n", temp.x0, temp.y0,
+	  	    temp.x1, temp.y1);
+	  	random_choose(&dst, &temp);
+
+	  	CHECK(CNET_set_position(dst));
+	}else{
+		printf("havent found the object\n");	
+	}
 }
+

@@ -1,3 +1,4 @@
+#include "mapping.h"
 /** 
  * TIMERS 
  * Timers from 1 - 4 belong to clients
@@ -9,7 +10,7 @@
 #define	EV_TALKING	EV_TIMER5
 #define EV_LISTEN	EV_TIMER6
 
-#define	FREQUENCY	10000 //the frequence sending a beacon frame
+#define	FREQUENCY	100000 //the frequence sending a beacon frame
 #define MAX_SIZE 50
 
 typedef struct{

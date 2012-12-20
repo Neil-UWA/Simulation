@@ -5,7 +5,7 @@
 #include "client.h"   
 #include "common.h" 
 #include "accesspoint.h"
-#include "mapping.h"
+//#include "mapping.h"
 #include "walking.h"
 
 #define	SIGNAL_LOSS_PER_OBJECT		12.0		// dBm
@@ -31,6 +31,7 @@ EVENT_HANDLER(reboot_node){
 	CHECK(CNET_set_handler(EV_PHYSICALREADY, listening, 0));
 
 	if(nodeinfo.nodetype == NT_ACCESSPOINT){
+		walk_inside();
 		CHECK(CNET_set_handler(EV_BEACON, beaconing, 0));
 		CNET_start_timer(EV_BEACON, FREQUENCY, 0);
 	}else{
