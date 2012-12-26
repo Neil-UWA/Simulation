@@ -2,7 +2,7 @@ COLOUR_OBJECTS	mapping.h	/^#define	COLOUR_OBJECTS	"#aaaaaa"$/
 COMMENT	mapping.h	/^#define	COMMENT		'#'$/
 CURRENT	client.c	/^#define		CURRENT		nodeinfo.time_of_day.usec$/
 EPS	mapping.c	/^#define	EPS	0.0001$/
-EVENT_HANDLER	accesspoint.c	/^\/\/ static EVENT_HANDLER(receive){$/
+EVENT_HANDLER	accesspoint.c	/^EVENT_HANDLER(beaconing){$/
 EV_BEACON	common.h	/^#define EV_BEACON	EV_TIMER1$/
 EV_LISTEN	common.h	/^#define EV_LISTEN	EV_TIMER6$/
 EV_RECEIVE	common.h	/^#define	EV_RECEIVE  EV_TIMER2$/
@@ -10,21 +10,26 @@ EV_TALKING	common.h	/^#define	EV_TALKING	EV_TIMER5$/
 EV_WALKING	walking.h	/^#define	EV_WALKING		EV_TIMER9$/
 FOREACH_OBJECT	mapping.c	/^#define	FOREACH_OBJECT	for(n=0, op=objects ; n<nob/
 FRAME	common.h	/^}FRAME;$/
+FRAMEKIND	common.h	/^typedef enum{DL_BEACON, DL_DATA}FRAMEKIND;$/
 FREQUENCY	common.h	/^#define	FREQUENCY	100000 \/\/the frequence sending/
+MAX_CLIENT	common.h	/^#define MAX_CLIENT	200 \/**< the maximum number of/
 MAX_PAUSE	walking.c	/^#define	MAX_PAUSE	30		\/\/ in seconds$/
-MAX_SIZE	common.h	/^#define MAX_SIZE 50$/
+MAX_SIZE	common.h	/^#define MAX_SIZE 50 \/**< the maximum length of a /
 MAX_SPEED	walking.c	/^#define	MAX_SPEED	5		\/\/ metres per WALK_FREQUENC/
 MAX_WALK_DIST	walking.c	/^#define	MAX_WALK_DIST	100		\/\/ maximum walk from /
 MIN_PAUSE	walking.c	/^#define	MIN_PAUSE	5		\/\/ in seconds$/
 OBJECT	mapping.h	/^} OBJECT;$/
 SCALE	mapping.h	/^#define	SCALE(p)	((int)((p) \/ mapscale))$/
+SIGNAL	common.h	/^}SIGNAL;$/
 SIGNAL_LOSS_PER_OBJECT	simulation.c	/^#define	SIGNAL_LOSS_PER_OBJECT		12.0		\/\/ dBm$/
 WALK_FREQUENCY	walking.c	/^#define	WALK_FREQUENCY	1000000		\/\/ take a step e/
+addToSignalList	common.c	/^void addToSignalList(FRAME frame, double rxsignal)/
 add_object	mapping.c	/^static void add_object(char *text, double x0, doub/
 am_walking	walking.c	/^bool am_walking(void)$/
 associateAP	client.c	/^\/\/static void associateAP(){ }$/
 associateClient	accesspoint.c	/^\/\/static void associateClient(){ }$/
 choose_position	mapping.c	/^void choose_position(CnetPosition *new, int maxdis/
+compareAP	common.c	/^bool compareAP(FRAME frame, double rxsignal){$/
 draw_objects	mapping.c	/^static void draw_objects(void)$/
 draw_walk	mapping.c	/^void draw_walk(CnetPosition *now, CnetPosition *ne/
 initFrame	common.c	/^FRAME initFrame(char *message, CnetPosition curren/
@@ -39,9 +44,10 @@ receiveCTS	client.c	/^\/\/static void receiveCTS(){ }$/
 receiveRTS	accesspoint.c	/^\/\/static void receiveRTS(){ }$/
 sendCTS	accesspoint.c	/^\/\/static void sendCTS(){ }$/
 sendRTS	client.c	/^\/\/static void sendRTS(){ }$/
+show	common.c	/^void show(){$/
 start_walking	walking.c	/^void start_walking(void)$/
 stop_walking	walking.c	/^void stop_walking(void)$/
 through_N_objects	mapping.c	/^int through_N_objects(CnetPosition S, CnetPosition/
 through_an_object	mapping.c	/^bool through_an_object(CnetPosition S, CnetPositio/
 trim	mapping.c	/^static char *trim(char *line)$/
-walk_inside	walking.c	/^void walk_inside(void){$/
+whichAP	common.c	/^int	whichAP(){$/

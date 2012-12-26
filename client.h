@@ -1,1 +1,1 @@
-EVENT_HANDLER(client);
+EVENT_HANDLER(client_talking);

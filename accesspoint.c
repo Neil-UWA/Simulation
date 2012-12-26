@@ -10,32 +10,23 @@
 #include "walking.h"
 #include "common.h"
 
+//static int	total_clients	=	0; /**< number of clients connected */
+
 //static void receiveRTS(){ }
 //
 //static void sendCTS(){ }
 //
 //static void associateClient(){ }
 
-/** receive */
-// static EVENT_HANDLER(receive){
-//	int			link;
-//	FRAME		frame;
-//	size_t		length	=	sizeof(FRAME);
-// 
-//	CNET_read_physical(&link, &frame, &length);
-//	printf("Message %s from node %d\n", frame.message, frame.nodenumber );
-//	(CNET_start_timer(EV_RECEIVE, FREQUENCY, 0));
-// }       
-
-
-
-/** sending beacon frames to the air */
+/**
+ * @brief sending beacon frames
+ */
 EVENT_HANDLER(beaconing){
 	int			link = 1;
 	FRAME		frame;
 	size_t		length = sizeof(frame);
 	CnetPosition current;
-	
+		
 	memset(&frame, 0, sizeof(FRAME));
 
 	CHECK(CNET_get_position(&current, NULL));

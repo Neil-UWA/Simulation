@@ -3,11 +3,14 @@ compile = "simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
 rebootargs = "uwa1.map"
 
 drawlinks = true
+//mapwidth=600
+//mapheight=1200
 mapwidth=135
-mapheight=110
+mapheight=80
 //icontitle="%a"
 mapscale=0.125
-mapgrid=5
+//mapscale=0.3
+mapgrid=1
 
 
 accesspoint uwa{

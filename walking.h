@@ -5,4 +5,4 @@ extern	void	init_walking(void);
 extern	void	start_walking(void);
 extern	void	stop_walking(void);
 extern	bool	am_walking(void);
-extern	void	walk_inside(void);
+extern			EVENT_HANDLER(walk_inside);

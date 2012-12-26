@@ -209,9 +209,9 @@ void choose_position(CnetPosition *new, int maxdist)
 
 /** 
  * @brief Am I inside the given object
- * @param position 
- * @param object  
- * @return true if current position is inside the given object 
+ * @param CnetPosition position 
+ * @param OBJECT object  
+ * @return bool true if current position is inside the given object 
  */
 bool inside(CnetPosition position, OBJECT object){
 	return (position.x>=object.x0&&position.x<=object.x1
@@ -221,8 +221,8 @@ bool inside(CnetPosition position, OBJECT object){
 /** 
  * @brief randomly choose a new destination inside the given
  * object 
- * @param *newdest
- * @param *object
+ * @param CnetPosition *newdest
+ * @param OBJECT *object
  * return 
  */
 void random_choose(CnetPosition *newdest, OBJECT *object){
@@ -237,9 +237,9 @@ void random_choose(CnetPosition *newdest, OBJECT *object){
 
 /** 
  * @brief which object am I in
- * @param position
- * @param *temp
- * @return true if found the object am i in.
+ * @param CnetPosition position
+ * @param OBJECT *temp
+ * @return bool true if found the object am i in.
  */
 bool insideObject(CnetPosition position, OBJECT *temp){
 	OBJECT	*op;
