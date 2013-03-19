@@ -1,126 +1,64 @@
-/** 
- * @file common.c	
- * @brief Common functions that used by others
- */
-
-#include <cnet.h>  
-#include <stdlib.h>
+#include <cnet.h>
 #include <string.h>
-
 #include "common.h"
 
-static	SIGNAL *signal_list	=	NULL; /**< store signal strength of APs */
-static	int		count	= 0; /**< counts for signal_list */
 
-/** initialize the data structure */
-FRAME initFrame(char *message, CnetPosition current){
+/**
+* @brief  initalize a frame
+*
+* @param kind type of the frame
+* @param dst  the target address 
+* @param msg Message
+*
+* @return FRAME 
+*/
+FRAME	
+initFrame(KIND kind, int dst, char	*msg)
+{
 	FRAME	frame;
 
 	memset(&frame, 0, sizeof(FRAME));
 
-	strcpy(frame.message, message);
-	frame.nodeinfo = nodeinfo;
-	frame.current	= current;
-	
+	frame.kind		=	kind;
+	frame.dst		=	dst;
+	frame.nodeinfo	=	nodeinfo;
+	frame.rxsignal	=	0.0;
+	strcpy(frame.msg, msg);
+//	frame.msg		=	msg;	
+	CHECK(CNET_get_position(&(frame.position), NULL));
+
 	return frame;
 }
 
-/**
- * @brief whether the node with the same number has been stored
- *
- * @param FRAME frame
- *
- * @return bool True if it has been stored. Otherwise, return False 
- */
-bool compareAP(FRAME frame, double rxsignal){
-	bool duplicated = false; // AP has been stored? 
-
-	for (int i = 0; i < count; i++) {
-		if (frame.nodeinfo.nodenumber == signal_list[i].nodenumber) {
-			signal_list[i].signal = rxsignal; // update signal 
-			duplicated = true;
-		}
-	}
-
-	return duplicated;
+void
+showFrame(FRAME frame)
+{
+	printf("from\tkind\tdst\tmsg\t\tsignal strength\n");
+	printf("%d\t%d\t%d\t%s\t\t%.3lf\n", 
+		frame.nodeinfo.nodenumber, frame.kind, frame.dst, frame.msg, frame.rxsignal);
+//	printf("my current location x = %d y = %d\n", frame.position.x, frame.position.y);
+//	if (frame.nodeinfo.nodetype == NT_ACCESSPOINT) {
+//		printf("signal srenghth %.2lfDB\n",frame.rxsignal);
+//	}
 }
 
 /**
-* @brief store the accessponts have been found with their signal strngth
-* this will not update the signal strength of APs dynamically
+* @brief transmit a frame
 *
-* @param FRAME frame
-* @param double rxsignal
+* @param kind
+* @param dst
+* @param msg
+* @param rxsignal
 */
-void addToSignalList(FRAME frame, double rxsignal){
-	if (frame.nodeinfo.nodetype == NT_ACCESSPOINT) {
+void 
+transmit(KIND kind, int dst, char *msg, double rxsignal)
+{
+	FRAME	frame	=	initFrame(kind, dst, msg);
+	size_t	length	=	sizeof(FRAME);
+	int		link	=	1;
 
-		if (count == 0) {
-			signal_list = (SIGNAL*)realloc(signal_list, (count+1)*sizeof(SIGNAL));
-			signal_list[count].nodenumber = frame.nodeinfo.nodenumber;
-			signal_list[count].signal = rxsignal ;
-			count += 1;
-		}else {
-			if (!compareAP(frame, rxsignal)) {
-				signal_list = realloc(signal_list, (count+1)*sizeof(SIGNAL));
-				signal_list[count].nodenumber = frame.nodeinfo.nodenumber;
-				signal_list[count].signal = rxsignal ;
-				count += 1;
-			}							
-		}		
+	frame.rxsignal	=	rxsignal;
 
-	}
+	CHECK(CNET_write_physical_reliable(link, (FRAME *)&frame, &length));
+	printf("transmitting a %s frame to ap %d\n", msg, dst);
 }
-
-/**
-* @brief decide which AP has the strongest signal 
-*
-* @return int -1 if no APs found. Otherwise return the nodenumber 
-* with the strongest signal
-*/
-int	whichAP(){
-	SIGNAL temp;
-
-	if (signal_list) {
-		memcpy(&temp, &signal_list[0], sizeof(SIGNAL));
-		for (int i = 1; i < count; i++) {
-			if(abs(temp.signal) >= abs(signal_list[i].signal)){
-				memcpy(&temp, &signal_list[i], sizeof(SIGNAL));
-			} 
-		}
-	}else {
-		return -1;
-	}
-
-	return temp.nodenumber;
-}
-
-//TODO will be commentted later, just for checking purpose
-void show(){
-	int	node;
-	for (int i = 0; i < count; i++) {
-		printf("node number: %d, received signal: %lf, count: %d\n", signal_list[i].nodenumber, signal_list[i].signal, count);
-	}
-
-node =	whichAP();
-
-	printf("ap %d\n", node);
-}
-
-/** sense message in the air */
-EVENT_HANDLER(listening){
-	int		link;
-	FRAME	frame;
-	size_t	length = sizeof(FRAME);
-	double	rxsignal;
-
-	CHECK(CNET_read_physical(&link, (FRAME *) &frame, &length));
-	CHECK(CNET_wlan_arrival(link, &rxsignal, NULL));
-
-	fprintf(stdout, "from node: %d\t signal: %lf, \tmessage: %s\n", frame.nodeinfo.nodenumber, rxsignal, frame.message);  	
-	
-	if (nodeinfo.nodetype == NT_MOBILE) {
-		addToSignalList(frame, rxsignal);
-		show();
-	}
-}        

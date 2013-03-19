@@ -1,2 +1,4 @@
-extern	EVENT_HANDLER(beaconing);
-extern	EVENT_HANDLER(ap);
+extern	EVENT_HANDLER(listenning);
+extern	EVENT_HANDLER(beaconning);
+extern	void init_beacon(void);
+extern	void start_beacon(void);

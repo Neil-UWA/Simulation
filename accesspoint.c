@@ -1,37 +1,81 @@
-/** 
- * @file accesspoint.c	
- * @brief Acess Point Module
- */
-
 #include <cnet.h>
-#include <string.h>
-
-#include "accesspoint.h"
-#include "walking.h"
+#include <stdlib.h>
 #include "common.h"
+#include "accesspoint.h"
 
-//static int	total_clients	=	0; /**< number of clients connected */
+#define	MAX_CLIENTS	(200) //the maximun clients an AP can handle
 
-//static void receiveRTS(){ }
-//
-//static void sendCTS(){ }
-//
-//static void associateClient(){ }
+static	CnetTimerID	beacon_tid		=	NULLTIMER;
+static	int			total_clients	=	0; //the number of clients associated with 
 
 /**
- * @brief sending beacon frames
- */
-EVENT_HANDLER(beaconing){
-	int			link = 1;
-	FRAME		frame;
-	size_t		length = sizeof(frame);
-	CnetPosition current;
-		
-	memset(&frame, 0, sizeof(FRAME));
+* @brief  sending beacon frames 10 times every second
+*/
+EVENT_HANDLER(beaconning)
+{
+	FRAME	frame	=	initFrame(DL_BEACON, BROADCAST, "BEACON");
+	size_t	length	=	sizeof(FRAME);
+	int		link	=	1;
+	
+	if (CNET_carrier_sense(1)==0) {
+		CHECK(CNET_write_physical_reliable(link, (FRAME *)&frame, &length));
+		printf("\nSENDING BEACONS\n");
+	}
 
-	CHECK(CNET_get_position(&current, NULL));
-	frame = initFrame("beacon", current);
+	beacon_tid = CNET_start_timer(EV_BEACON, FREQUENCY + CNET_rand()%1000,	0);
+}
 
-	CHECK(CNET_write_physical_reliable(link, (FRAME *)&frame, &length));
-	CNET_start_timer(EV_BEACON, FREQUENCY, 0);
+void 
+init_beacon(void)
+{
+	CHECK(CNET_set_handler(EV_BEACON, beaconning, 0));	
+}
+
+void 
+start_beacon(void)
+{
+	beacon_tid = CNET_start_timer(EV_BEACON, FREQUENCY + CNET_rand()%1000,	0);
+}
+
+EVENT_HANDLER(listenning)
+{
+	FRAME	frame;
+	size_t	length = sizeof(FRAME);
+	int		link;
+	double	rxsignal;
+
+	CHECK(CNET_read_physical(&link, (FRAME *)&frame, &length));
+	CHECK(CNET_wlan_arrival(link, &rxsignal, NULL));
+	
+	frame.rxsignal	=	rxsignal;
+
+	showFrame(frame);
+	printf("the total associated clients is %d\n", total_clients);
+
+	//this frame is for me and it comes from an mobile client
+	if (frame.nodeinfo.nodetype == NT_MOBILE && 
+			frame.dst == nodeinfo.nodenumber) {
+
+		switch (frame.kind){
+			case DL_RTS:
+				transmit(DL_CTS, frame.nodeinfo.nodenumber, "CTS", rxsignal);
+				break;
+
+			case DL_ASSOCIATION_ACK:
+				transmit(DL_ASSOCIATION_ACK, frame.nodeinfo.nodenumber, "ASSOCIATED", rxsignal);
+				total_clients += 1;
+				break;	
+
+			case DL_DATA:
+				transmit(DL_ACK, frame.nodeinfo.nodenumber, "DATA RECEIVED", rxsignal);
+				break;
+
+			case DL_DISCONNECT:		
+				total_clients -= 1;
+				break;
+
+			default:
+				break;
+		}
+	} 
 }

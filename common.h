@@ -1,37 +1,45 @@
-#include "mapping.h"
-/** 
- * TIMERS 
- * Timers from 1 - 4 belong to clients
- * TImers from 5 - 8 belong to access points
- */
+#define	FREQUENCY	(100000) //send beacon frame 10 times/sec
+#define	BROADCAST	(-1) //broadcasting 
+#define	MAXSIZE		(50)
+#define	NULLAP		(-1) //no ap exists
+
 #define EV_BEACON	EV_TIMER1
-#define	EV_RECEIVE  EV_TIMER2
+#define EV_TALKING	EV_TIMER2
+#define	EV_ASSOCIATE	EV_TIMER4
+#define	EV_TIMEOUT	EV_TIMER5
 
-#define	EV_TALKING	EV_TIMER5
-#define EV_LISTEN	EV_TIMER6
 
-#define	FREQUENCY	100000 //the frequence sending a beacon frame
-#define MAX_CLIENT	200 /**< the maximum number of clients that an ap can handle */ 
-#define MAX_SIZE 50 /**< the maximum length of a message*/
+/**
+* @brief types of frame
+*/
+typedef enum {
+	DL_BEACON,
+	DL_CTS,
+	DL_CTS_ACK,
+	DL_RTS,		
+	DL_RTS_ACK,
+	DL_ASSOCIATION_ACK,
+	DL_DATA,
+	DL_ACK,
+	DL_DISCONNECT,
+	DL_OVERLODA,
+	DL_AP
+} KIND; 
 
-typedef enum{DL_BEACON, DL_DATA}FRAMEKIND;
-typedef struct{
+typedef struct _FRAME {
+	KIND			kind;
+	int				dst;	//	the target talking to 
+	char			msg[MAXSIZE];
 	CnetNodeInfo	nodeinfo;
-	CnetPosition	current;
-	char			message[MAX_SIZE];
-}FRAME;
-                    
-typedef struct{
-	int		nodenumber; /**< the node number of an access point */
-	double	signal; /**< signal strength received */
-}SIGNAL;
+	CnetPosition	position;
+	double			rxsignal;
+} FRAME;
 
-extern FRAME initFrame(char *message, CnetPosition current);
+typedef struct _AP {
+	int			AP_addr;
+	double		rxsignal;
+} AP;
 
-bool compareAP(FRAME frame, double rxsignal);
-void addToSignalList(FRAME frame, double rxsignal);
-int	whichAP();
-void show();
-
-/** sense message in the air */
-extern EVENT_HANDLER(listening);
+extern	FRAME	initFrame(KIND kind, int dst, char	*msg);
+extern	void	transmit(KIND kind, int dst, char *msg, double rxsignal);
+extern	void	showFrame(FRAME frame);

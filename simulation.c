@@ -2,10 +2,10 @@
 #include <time.h>
 #include <string.h>
 
+#include "common.h"
 #include "client.h"   
-#include "common.h" 
 #include "accesspoint.h"
-//#include "mapping.h"
+#include "mapping.h"
 #include "walking.h"
 
 #define	SIGNAL_LOSS_PER_OBJECT		12.0		// dBm
@@ -28,19 +28,20 @@ EVENT_HANDLER(reboot_node){
 		//  WE REQUIRE EACH NODE TO HAVE A DIFFERENT STREAM OF RANDOM NUMBERS
 		CNET_srand(nodeinfo.time_of_day.sec + nodeinfo.nodenumber);
 
-		CHECK(CNET_set_handler(EV_PHYSICALREADY, listening, 0));
-
 		if(nodeinfo.nodetype == NT_ACCESSPOINT){
-			CHECK(CNET_set_handler(EV_TIMER7, walk_inside, 0));
-			CHECK(CNET_set_handler(EV_BEACON, beaconing, 0));
+			init_beacon();
+			start_beacon();
+			CHECK(CNET_set_handler(EV_PHYSICALREADY,	listenning, 0));
 
-			CNET_start_timer(EV_BEACON, FREQUENCY, 0);
-			CNET_start_timer(EV_TIMER7, (CnetTime) 1000000, 0);
-		}else{
+		}
+		else{
 			init_walking();
 			start_walking();     
-			CHECK(CNET_set_handler(EV_TALKING, client_talking, 0));
-			CNET_start_timer(EV_TALKING, 1000000, 0);
+
+			init_talking();
+			start_talking();
+
+			CHECK(CNET_set_handler(EV_PHYSICALREADY,	searching_ap, 0));
 		}                                                         
 	}
 }

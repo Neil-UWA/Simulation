@@ -1,58 +1,39 @@
 compile = "simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
 
-rebootargs = "uwa1.map"
+rebootargs = "uwa1.map",
 
 drawlinks = true
 //mapwidth=600
 //mapheight=1200
-mapwidth=135
-mapheight=80
+//mapwidth=135
+//mapheight=80
+mapwidth=600
+mapheight=300
 //icontitle="%a"
-mapscale=0.125
-//mapscale=0.3
+//mapscale=0.125
+mapscale=0.6
+//mapscale = 1
 mapgrid=1
 
 
 accesspoint uwa{
 	x = 11, y= 42
-	wlan{
-		nicaddr	= 00:90:27:62:83:F3
-	}
+	wlan{ }
 }
 accesspoint ipod1{
 	x = 71, y= 20
-	wlan{
-		nicaddr	= 00:90:27:62:88:F3
-	}
+	wlan{ }
+}
+accesspoint ipod2{
+	x = 33, y= 20
+	wlan{ }
 }
 accesspoint ipod{
 	x = 135, y = 50 
-	wlan{
-		nicaddr = 11:11:11:11:11:11
-	}
+	wlan{ }
 }
-mobile phone1{
-	wlan{
-		nicaddr	= 00:90:27:62:83:F4
-	}	
-}
-mobile phone2{
-	wlan{
-		nicaddr	= 00:90:27:62:83:F6
-	}
-}
-mobile phone3{
-	wlan{
-		nicaddr	= 00:90:27:62:83:F1
-	}
-}
-mobile phone4{
-	wlan{
-		nicaddr	= 00:90:27:62:83:F8
-	}
-}
-mobile phone5{
-	wlan{
-		nicaddr	= 00:90:27:62:83:F4
-	}	
-}
+mobile phone1{ wlan{ }	}
+mobile phone2{ wlan{ } }
+mobile phone3{ wlan{ } }
+mobile phone4{ wlan{ } }
+mobile phone5{ wlan{ }	}
