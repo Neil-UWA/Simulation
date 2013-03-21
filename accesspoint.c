@@ -6,7 +6,7 @@
 #define	MAX_CLIENTS	(200) //the maximun clients an AP can handle
 
 static	CnetTimerID	beacon_tid		=	NULLTIMER;
-static	int			total_clients	=	0; //the number of clients associated with 
+static	int			total_clients	=	0; //the total number of clients associated with 
 
 /**
 * @brief  sending beacon frames 10 times every second

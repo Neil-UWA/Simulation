@@ -3,10 +3,10 @@
 #define	MAXSIZE		(50)
 #define	NULLAP		(-1) //no ap exists
 
-#define EV_BEACON	EV_TIMER1
-#define EV_TALKING	EV_TIMER2
+#define EV_BEACON		EV_TIMER1
+#define EV_TALKING		EV_TIMER2
 #define	EV_ASSOCIATE	EV_TIMER4
-#define	EV_TIMEOUT	EV_TIMER5
+#define	EV_TIMEOUT		EV_TIMER5
 
 
 /**
@@ -22,13 +22,12 @@ typedef enum {
 	DL_DATA,
 	DL_ACK,
 	DL_DISCONNECT,
-	DL_OVERLODA,
-	DL_AP
+	DL_OVERLOAD
 } KIND; 
 
 typedef struct _FRAME {
 	KIND			kind;
-	int				dst;	//	the target talking to 
+	int				dst;	//	the target ap/client talking to 
 	char			msg[MAXSIZE];
 	CnetNodeInfo	nodeinfo;
 	CnetPosition	position;

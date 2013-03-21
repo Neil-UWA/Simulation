@@ -11,7 +11,7 @@ static	int	nobjects	= 0;
 #define	FOREACH_OBJECT	for(n=0, op=objects ; n<nobjects ; ++n, ++op)
 
 static	CnetPosition	mapsize;
-static	double		mapscale;
+static double		mapscale;
 
 
 static void add_object(char *text, double x0, double y0, double x1, double y1)

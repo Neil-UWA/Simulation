@@ -9,10 +9,10 @@ drawlinks = true
 //mapheight=80
 mapwidth=600
 mapheight=300
-//icontitle="%a"
+icontitle="%a"
 //mapscale=0.125
-mapscale=0.6
-//mapscale = 1
+//mapscale=0.6
+mapscale = 0.3
 mapgrid=1
 
 
@@ -32,8 +32,109 @@ accesspoint ipod{
 	x = 135, y = 50 
 	wlan{ }
 }
-mobile phone1{ wlan{ }	}
-mobile phone2{ wlan{ } }
-mobile phone3{ wlan{ } }
-mobile phone4{ wlan{ } }
-mobile phone5{ wlan{ }	}
+
+mobile phone1{wlan{}}
+mobile phone2{wlan{}}
+mobile phone3{wlan{}}
+mobile phone4{wlan{}}
+mobile phone5{wlan{}}
+mobile phone6 {wlan{}}
+mobile phone7 {wlan{}}
+mobile phone8 {wlan{}}
+mobile phone9 {wlan{}}
+mobile phone10 {wlan{}}
+mobile phone11 {wlan{}}
+mobile phone12 {wlan{}}
+mobile phone13 {wlan{}}
+mobile phone14 {wlan{}}
+mobile phone15 {wlan{}}
+mobile phone16 {wlan{}}
+mobile phone17 {wlan{}}
+mobile phone18 {wlan{}}
+mobile phone19 {wlan{}}
+mobile phone20 {wlan{}}
+mobile phone21 {wlan{}}
+mobile phone22 {wlan{}}
+mobile phone23 {wlan{}}
+mobile phone24 {wlan{}}
+mobile phone25 {wlan{}}
+mobile phone26 {wlan{}}
+mobile phone27 {wlan{}}
+mobile phone28 {wlan{}}
+mobile phone29 {wlan{}}
+mobile phone30 {wlan{}}
+mobile phone31 {wlan{}}
+mobile phone32 {wlan{}}
+mobile phone33 {wlan{}}
+mobile phone34 {wlan{}}
+mobile phone35 {wlan{}}
+mobile phone36 {wlan{}}
+mobile phone37 {wlan{}}
+mobile phone38 {wlan{}}
+mobile phone39 {wlan{}}
+mobile phone40 {wlan{}}
+mobile phone41 {wlan{}}
+mobile phone42 {wlan{}}
+mobile phone43 {wlan{}}
+mobile phone44 {wlan{}}
+mobile phone45 {wlan{}}
+mobile phone46 {wlan{}}
+mobile phone47 {wlan{}}
+mobile phone48 {wlan{}}
+mobile phone49 {wlan{}}
+mobile phone50 {wlan{}}
+mobile phone51 {wlan{}}
+mobile phone52 {wlan{}}
+mobile phone53 {wlan{}}
+mobile phone54 {wlan{}}
+mobile phone55 {wlan{}}
+mobile phone56 {wlan{}}
+mobile phone57 {wlan{}}
+mobile phone58 {wlan{}}
+mobile phone59 {wlan{}}
+mobile phone60 {wlan{}}
+mobile phone61 {wlan{}}
+mobile phone62 {wlan{}}
+mobile phone63 {wlan{}}
+mobile phone64 {wlan{}}
+mobile phone65 {wlan{}}
+mobile phone66 {wlan{}}
+mobile phone67 {wlan{}}
+mobile phone68 {wlan{}}
+mobile phone69 {wlan{}}
+mobile phone70 {wlan{}}
+mobile phone71 {wlan{}}
+mobile phone72 {wlan{}}
+mobile phone73 {wlan{}}
+mobile phone74 {wlan{}}
+mobile phone75 {wlan{}}
+mobile phone76 {wlan{}}
+mobile phone77 {wlan{}}
+mobile phone78 {wlan{}}
+mobile phone79 {wlan{}}
+mobile phone80 {wlan{}}
+mobile phone81 {wlan{}}
+mobile phone82 {wlan{}}
+mobile phone83 {wlan{}}
+mobile phone84 {wlan{}}
+mobile phone85 {wlan{}}
+mobile phone86 {wlan{}}
+mobile phone87 {wlan{}}
+mobile phone88 {wlan{}}
+mobile phone89 {wlan{}}
+mobile phone90 {wlan{}}
+mobile phone91 {wlan{}}
+mobile phone92 {wlan{}}
+mobile phone93 {wlan{}}
+mobile phone94 {wlan{}}
+mobile phone95 {wlan{}}
+mobile phone96 {wlan{}}
+mobile phone97 {wlan{}}
+mobile phone98 {wlan{}}
+mobile phone99 {wlan{}}
+mobile phone100 {wlan{}}
+mobile phone101 {wlan{}}
+mobile phone102 {wlan{}}
+mobile phone103 {wlan{}}
+mobile phone104 {wlan{}}
+mobile phone105 {wlan{}}

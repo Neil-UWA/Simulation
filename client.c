@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "common.h"
 #include "client.h"
+#include "mapping.h"
 
 static	bool		foundAP		=	false;  // found ap?
 static	bool		associated	=	false;  // associated with an ap?
@@ -11,6 +12,7 @@ static	int			targetAP	=	NULLAP; // the ap talk to
 static	int			times		=	5;		// listen for 5 seconds
 static	AP			*apList		=	NULL;   // a list to store aps
 static	int			count		=	0;		// counter of apList
+static  double		mapscale;
 
 static	CnetTimerID	timeout_tid	=	NULLTIMER;
 static	CnetTimerID	talk_tid	=	NULLTIMER; 
@@ -121,8 +123,17 @@ disconnect(int	dst){
 
 EVENT_HANDLER(talking)
 {
-	if (!foundAP) 
+	CnetPosition	current;	
+	
+	mapscale = CNET_get_mapscale();
+	CHECK(CNET_get_position(&current, NULL)); 
+
+	if (!foundAP) {
 		printf("no signal here\n");
+	    TCLTK("$map create rect %d %d %d %d -width 1 -outline %s -fill %s",
+		    SCALE(current.x), SCALE(current.y), SCALE(current.x + 1), SCALE(current.y +1),
+		    COLOUR_OBJECTS, "red");
+	}
 
 
 	if (foundAP&&!associated) {
@@ -170,15 +181,14 @@ EVENT_HANDLER(timeouts)
 
 		disconnect(targetAP);
 
-		init_searchAP();
-		start_talking();
 	}
 
 	if (foundAP&&!associated) {
 		printf("NO response from the AP %d\n", targetAP);
-		init_searchAP();
 		foundAP = false;
 	}
+		init_searchAP();
+		start_talking();
 }
 
 
@@ -265,7 +275,10 @@ EVENT_HANDLER(listen_to_ap)
 		if (foundAP&&!associated) {
 			// acknowlege the AP that the CTS frame has been received
 			if (frame.kind == DL_CTS)
+			{
+				stop_timeout();
 				transmit(DL_ASSOCIATION_ACK, targetAP, "ASSOCATION_ACK", rxsignal);
+			}
 
 			// if received a ASSOCATION_ACK frame from the targetAP, then the association is completed
 			if (frame.kind == DL_ASSOCIATION_ACK)
@@ -328,6 +341,7 @@ EVENT_HANDLER(searching_ap)
 				transmit(DL_RTS, targetAP, "RTS", rxsignal);	
 
 				init_timeout();
+				start_timeout();
 			}
 		}
 	}

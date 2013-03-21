@@ -56,7 +56,7 @@ static EVENT_HANDLER(walker)
 			newspeed	= CNET_rand() % MAX_SPEED + 1;
 			nsteps	= dist / newspeed;
 		} while(nsteps < 3);		// ensure we'll take at least 3 steps
-		draw_walk(&now, &newdest);
+		//draw_walk(&now, &newdest);
 
 		//  CALCULATE MOVEMENTS PER STEP
 		dx	= (dx / nsteps);
