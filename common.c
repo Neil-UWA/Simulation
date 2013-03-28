@@ -24,7 +24,6 @@ initFrame(KIND kind, int dst, char	*msg)
 	frame.nodeinfo	=	nodeinfo;
 	frame.rxsignal	=	0.0;
 	strcpy(frame.msg, msg);
-//	frame.msg		=	msg;	
 	CHECK(CNET_get_position(&(frame.position), NULL));
 
 	return frame;

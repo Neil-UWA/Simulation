@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "common.h"
 #include "client.h"
+#include "coverage.h"
 #include "mapping.h"
 
 static	bool		foundAP		=	false;  // found ap?
@@ -17,7 +18,6 @@ static  double		mapscale;
 static	CnetTimerID	timeout_tid	=	NULLTIMER;
 static	CnetTimerID	talk_tid	=	NULLTIMER; 
 static	CnetTimerID	ass_tid		=	NULLTIMER; 
-
 
 /**
 * @brief compare beacon frames, whether they are the same
@@ -273,6 +273,7 @@ EVENT_HANDLER(listen_to_ap)
 	// frames from APs
 	if (frame.nodeinfo.nodenumber == targetAP && frame.dst == nodeinfo.nodenumber) {
 		if (foundAP&&!associated) {
+
 			// acknowlege the AP that the CTS frame has been received
 			if (frame.kind == DL_CTS)
 			{
@@ -287,7 +288,6 @@ EVENT_HANDLER(listen_to_ap)
 
 				CHECK(CNET_set_handler(EV_TIMER3, talk_to_ap, 0));			
 				CNET_start_timer(EV_TIMER3, 1000000, 0);
-
 			}
 		}
 		else {
@@ -296,6 +296,13 @@ EVENT_HANDLER(listen_to_ap)
 				CNET_start_timer(EV_TIMER3, 1000000, 0);
 			}
 		}
+
+		//set_covered(current);
+		cell state;
+		state.current = current;
+		state.cellState = COVERED;	
+		size_t	len = sizeof(cell);
+		CHECK(CNET_write_direct(0,(cell *)&state,&len ));
 
 		showFrame(frame);	
 	}
@@ -325,8 +332,10 @@ EVENT_HANDLER(searching_ap)
 			stop_talking();
 
 			if (times != 0) {
-				addToAPList(frame, rxsignal);
 				printf("AP signals have been found, searching AP with the strongest signal\n");
+				if (!frame.overload) {
+					addToAPList(frame, rxsignal);
+				}
 				times --;	
 				show();
 			}
@@ -344,6 +353,8 @@ EVENT_HANDLER(searching_ap)
 				start_timeout();
 			}
 		}
+
+		//set_covered(current);
 	}
 }
 

@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "common.h"
+#include "coverage.h"
 #include "mapping.h"
 
 static	OBJECT	*objects	= NULL;
@@ -11,7 +13,7 @@ static	int	nobjects	= 0;
 #define	FOREACH_OBJECT	for(n=0, op=objects ; n<nobjects ; ++n, ++op)
 
 static	CnetPosition	mapsize;
-static double		mapscale;
+static	double			mapscale;
 
 
 static void add_object(char *text, double x0, double y0, double x1, double y1)
@@ -35,6 +37,11 @@ static void add_object(char *text, double x0, double y0, double x1, double y1)
         new->y0			= y0;
         new->x1			= x1;
         new->y1			= y1;
+
+		if (!text) {
+			set_barrier(*new);
+		}
+
         ++nobjects;
     }
     else
@@ -63,6 +70,8 @@ static void draw_objects(void)
 		    SCALE(op->x0), SCALE(op->y0), SCALE(op->x1), SCALE(op->y1),
 		    COLOUR_OBJECTS, COLOUR_OBJECTS);
     }
+
+	printf("the outdoor area is %d\n", outdoor_area());
 }
 
 static char *trim(char *line)
@@ -86,6 +95,8 @@ void readmap(const char *mapfile)
 {
     FILE *fp	= fopen(mapfile, "r");
 
+	init_map();
+	printf("the map size %d * %d\n", map_width, map_height);
 //  EACH NODE READS IN THE MAP DETAILS
     if(fp) {
         char	line[1024], text[1024], *s;

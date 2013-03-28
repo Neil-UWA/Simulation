@@ -9,6 +9,14 @@
 #define	EV_TIMEOUT		EV_TIMER5
 
 
+typedef struct {
+    char	*text;
+	double 	x0;
+   	double 	y0;
+   	double 	x1;
+   	double 	y1;
+} OBJECT;
+
 /**
 * @brief types of frame
 */
@@ -32,12 +40,18 @@ typedef struct _FRAME {
 	CnetNodeInfo	nodeinfo;
 	CnetPosition	position;
 	double			rxsignal;
+	bool			overload;
 } FRAME;
 
 typedef struct _AP {
 	int			AP_addr;
 	double		rxsignal;
 } AP;
+
+typedef struct _cell {
+	CnetPosition	current;
+	int				cellState; 
+} cell;
 
 extern	FRAME	initFrame(KIND kind, int dst, char	*msg);
 extern	void	transmit(KIND kind, int dst, char *msg, double rxsignal);

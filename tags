@@ -1,23 +1,24 @@
-AP	common.h	39
-AP_addr	common.h	37
+AP	common.h	49
+AP_addr	common.h	47
 BROADCAST	common.h	2
 COLOUR_OBJECTS	mapping.h	4
 COMMENT	mapping.h	3
-DL_ACK	common.h	21
-DL_AP	common.h	24
-DL_ASSOCIATION_ACK	common.h	19
-DL_BEACON	common.h	14
-DL_CTS	common.h	15
-DL_CTS_ACK	common.h	16
-DL_DATA	common.h	20
-DL_DISCONNECT	common.h	22
-DL_OVERLODA	common.h	23
-DL_RTS	common.h	17
-DL_RTS_ACK	common.h	18
-EPS	mapping.c	123
-EPS	mapping.c	140
+COVERED	coverage.h	6
+DL_ACK	common.h	31
+DL_ASSOCIATION_ACK	common.h	29
+DL_BEACON	common.h	24
+DL_CTS	common.h	25
+DL_CTS_ACK	common.h	26
+DL_DATA	common.h	30
+DL_DISCONNECT	common.h	32
+DL_OVERLOAD	common.h	33
+DL_RTS	common.h	27
+DL_RTS_ACK	common.h	28
+EPS	mapping.c	134
+EPS	mapping.c	151
 EVENT_HANDLER	accesspoint.c	/^EVENT_HANDLER(beaconning)$/
 EVENT_HANDLER	accesspoint.c	/^EVENT_HANDLER(listenning)$/
+EVENT_HANDLER	am.c	/^EVENT_HANDLER(monitor){$/
 EVENT_HANDLER	client.c	/^EVENT_HANDLER(talking)$/
 EVENT_HANDLER	client.c	/^EVENT_HANDLER(timeouts)$/
 EVENT_HANDLER	client.c	/^EVENT_HANDLER(associate_with_ap)$/
@@ -27,45 +28,59 @@ EVENT_HANDLER	client.c	/^EVENT_HANDLER(searching_ap)$/
 EVENT_HANDLER	simulation.c	/^EVENT_HANDLER(reboot_node){$/
 EVENT_HANDLER	walking.c	/^static EVENT_HANDLER(walker)$/
 EVENT_HANDLER	walking.c	/^EVENT_HANDLER(walk_inside){$/
+EV_ASSOCIATE	common.h	8
 EV_BEACON	common.h	6
 EV_TALKING	common.h	7
-EV_TIMEOUT	client.h	1
+EV_TIMEOUT	common.h	9
 EV_WALKING	walking.h	1
-FOREACH_OBJECT	mapping.c	11
-FRAME	common.h	34
+FOREACH_OBJECT	mapping.c	13
+FRAME	common.h	44
+FREE	coverage.h	4
 FREQUENCY	common.h	1
-KIND	common.h	25
+KIND	common.h	34
 MAXSIZE	common.h	3
-MAX_CLIENTS	accesspoint.c	6
-MAX_PAUSE	walking.c	19
-MAX_SPEED	walking.c	17
-MAX_WALK_DIST	walking.c	20
-MIN_PAUSE	walking.c	18
+MAX_CLIENTS	accesspoint.c	7
+MAX_PAUSE	walking.c	20
+MAX_SPEED	walking.c	18
+MAX_WALK_DIST	walking.c	21
+MIN_PAUSE	walking.c	19
+Mtimetable	timetable.c	/^int main(int argc, const char *argv[])$/
+Mtopology	topology.c	/^int main(int argc, const char *argv[])$/
 NULLAP	common.h	4
-OBJECT	mapping.h	13
+OBJECT	common.h	18
+OBSTACLE	coverage.h	5
 SCALE	mapping.h	/^#define	SCALE(p)	((int)((p) \/ mapscale))$/
-SIGNAL_LOSS_PER_OBJECT	simulation.c	11
-WALK_FREQUENCY	walking.c	16
-_AP	common.h	36
-_FRAME	common.h	27
+SIGNAL_LOSS_PER_OBJECT	simulation.c	13
+WALK_FREQUENCY	walking.c	17
+_AP	common.h	46
+_FRAME	common.h	36
+_cell	common.h	51
+_timetable	timetable.c	4
 addToAPList	client.c	/^addToAPList(FRAME frame, double rxsignal)$/
 add_object	mapping.c	/^static void add_object(char *text, double x0, doub/
 am_walking	walking.c	/^bool am_walking(void)$/
-apList	client.c	12
-ass_tid	client.c	17
-associated	client.c	9
-beacon_tid	accesspoint.c	8
+apList	client.c	14
+ass_tid	client.c	20
+associated	client.c	11
+beacon_tid	accesspoint.c	9
+cell	common.h	54
+cellState	common.h	53
 choose_position	mapping.c	/^void choose_position(CnetPosition *new, int maxdis/
 compareAP	client.c	/^compareAP(FRAME frame, double rxsignal){$/
-count	client.c	13
+count	client.c	15
+coverage_rate	coverage.c	/^double coverage_rate(void){$/
+current	common.h	52
 disconnect	client.c	/^disconnect(int	dst){$/
 draw_objects	mapping.c	/^static void draw_objects(void)$/
 draw_walk	mapping.c	/^void draw_walk(CnetPosition *now, CnetPosition *ne/
-dst	common.h	29
-foundAP	client.c	8
+dst	common.h	38
+foundAP	client.c	10
+get_building_area	coverage.c	/^int	get_building_area(void){$/
+get_overload	accesspoint.c	/^get_overload(){$/
 initFrame	common.c	/^initFrame(KIND kind, int dst, char	*msg)$/
 init_association	client.c	/^init_association(double data)$/
 init_beacon	accesspoint.c	/^init_beacon(void)$/
+init_map	coverage.c	/^void init_map(void){$/
 init_searchAP	client.c	/^init_searchAP(void){$/
 init_talking	client.c	/^init_talking(void)$/
 init_timeout	client.c	/^init_timeout(void)$/
@@ -73,20 +88,30 @@ init_walking	walking.c	/^void init_walking(void)$/
 inside	mapping.c	/^bool inside(CnetPosition position, OBJECT object){/
 insideObject	mapping.c	/^bool insideObject(CnetPosition position, OBJECT *t/
 intersect	mapping.c	/^static bool intersect(	double x0, double y0, doubl/
-kind	common.h	28
-mapscale	mapping.c	14
-mapsize	mapping.c	13
-msg	common.h	30
+kind	common.h	37
+map	coverage.c	6
+map_height	coverage.h	2
+map_width	coverage.h	1
+mapscale	client.c	16
+mapscale	mapping.c	16
+mapsize	mapping.c	15
+msg	common.h	39
 my_WLAN_model	simulation.c	/^static WLANRESULT my_WLAN_model(WLANSIGNAL *sig)$/
-nobjects	mapping.c	9
-nodeinfo	common.h	31
-objects	mapping.c	8
-paused	walking.c	23
-position	common.h	32
+nobjects	mapping.c	11
+nodeinfo	common.h	40
+objects	mapping.c	10
+outdoor_area	coverage.c	/^int	outdoor_area(void){$/
+outdoor_coverage	coverage.c	/^int outdoor_coverage(void){$/
+overload	common.h	43
+paused	walking.c	24
+position	common.h	41
 random_choose	mapping.c	/^void random_choose(CnetPosition *newdest, OBJECT */
+read_timetable	timetable.c	/^void read_timetable(const char *file){$/
 readmap	mapping.c	/^void readmap(const char *mapfile)$/
-rxsignal	common.h	33
-rxsignal	common.h	38
+rxsignal	common.h	42
+rxsignal	common.h	48
+set_barrier	coverage.c	/^void set_barrier(OBJECT obj){$/
+set_covered	coverage.c	/^void set_covered(CnetPosition current){$/
 show	client.c	/^show(void){$/
 showFrame	common.c	/^showFrame(FRAME frame)$/
 start_association	client.c	/^start_association(void)$/
@@ -98,19 +123,24 @@ stop_association	client.c	/^stop_association(void)$/
 stop_talking	client.c	/^stop_talking(void)$/
 stop_timeout	client.c	/^stop_timeout(void)$/
 stop_walking	walking.c	/^void stop_walking(void)$/
-talk_tid	client.c	16
-targetAP	client.c	10
-text	mapping.h	8
+talk_tid	client.c	19
+targetAP	client.c	12
+text	common.h	13
 through_N_objects	mapping.c	/^int through_N_objects(CnetPosition S, CnetPosition/
 through_an_object	mapping.c	/^bool through_an_object(CnetPosition S, CnetPositio/
-tid	walking.c	22
-timeout_tid	client.c	15
-times	client.c	11
-total_clients	accesspoint.c	9
+tid	walking.c	23
+time	timetable.c	7
+timeout_tid	client.c	18
+times	client.c	13
+timetable	timetable.c	8
+total_clients	accesspoint.c	10
 transmit	common.c	/^transmit(KIND kind, int dst, char *msg, double rxs/
 trim	mapping.c	/^static char *trim(char *line)$/
+trim	timetable.c	/^static char *trim(char *line)$/
+unit	timetable.c	6
+week	timetable.c	5
 whichAP	client.c	/^whichAP(void){$/
-x0	mapping.h	9
-x1	mapping.h	11
-y0	mapping.h	10
-y1	mapping.h	12
+x0	common.h	14
+x1	common.h	16
+y0	common.h	15
+y1	common.h	17

@@ -2,11 +2,22 @@
 #include <stdlib.h>
 #include "common.h"
 #include "accesspoint.h"
+#include "coverage.h"
 
-#define	MAX_CLIENTS	(200) //the maximun clients an AP can handle
+#define	MAX_CLIENTS	(5) //the maximun clients an AP can handle
 
 static	CnetTimerID	beacon_tid		=	NULLTIMER;
 static	int			total_clients	=	0; //the total number of clients associated with 
+
+/**
+* @brief determine whether the maximun clients number is reached
+*
+* @return 
+*/
+bool 
+get_overload(){
+	return total_clients == MAX_CLIENTS;
+}
 
 /**
 * @brief  sending beacon frames 10 times every second
@@ -16,12 +27,17 @@ EVENT_HANDLER(beaconning)
 	FRAME	frame	=	initFrame(DL_BEACON, BROADCAST, "BEACON");
 	size_t	length	=	sizeof(FRAME);
 	int		link	=	1;
+
+	frame.overload	=	get_overload();
 	
 	if (CNET_carrier_sense(1)==0) {
 		CHECK(CNET_write_physical_reliable(link, (FRAME *)&frame, &length));
 		printf("\nSENDING BEACONS\n");
 	}
-
+	
+	if (nodeinfo.nodenumber == 0) {
+		printf("%lf\n", coverage_rate());
+	}
 	beacon_tid = CNET_start_timer(EV_BEACON, FREQUENCY + CNET_rand()%1000,	0);
 }
 
@@ -48,6 +64,7 @@ EVENT_HANDLER(listenning)
 	CHECK(CNET_wlan_arrival(link, &rxsignal, NULL));
 	
 	frame.rxsignal	=	rxsignal;
+	frame.overload	=	get_overload();
 
 	showFrame(frame);
 	printf("the total associated clients is %d\n", total_clients);
@@ -58,7 +75,7 @@ EVENT_HANDLER(listenning)
 
 		switch (frame.kind){
 			case DL_RTS:
-				transmit(DL_CTS, frame.nodeinfo.nodenumber, "CTS", rxsignal);
+					transmit(DL_CTS, frame.nodeinfo.nodenumber, "CTS", rxsignal);
 				break;
 
 			case DL_ASSOCIATION_ACK:

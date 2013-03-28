@@ -1,43 +1,33 @@
-compile = "simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
+compile = "simulation.c mapping.c walking.c accesspoint.c client.c common.c  coverage.c am.c -lm"
 
-rebootargs = "uwa1.map",
+rebootargs = "uwa1.map"
 
 drawlinks = true
-//mapwidth=600
-//mapheight=1200
-//mapwidth=135
-//mapheight=80
-mapwidth=600
+mapwidth = 600
 mapheight=300
 icontitle="%a"
-//mapscale=0.125
-//mapscale=0.6
 mapscale = 0.3
-mapgrid=1
+mapgrid = 1
 
+accesspoint uwa0 {
+x = 11, y = 42
+wlan{}
+}
+accesspoint uwa1 {
+x = 71, y = 20
+wlan{}
+}
+accesspoint uwa2 {
+x = 33, y = 20
+wlan{}
+}
+accesspoint uwa3 {
+x = 135, y = 50
+wlan{}
+}
 
-accesspoint uwa{
-	x = 11, y= 42
-	wlan{ }
-}
-accesspoint ipod1{
-	x = 71, y= 20
-	wlan{ }
-}
-accesspoint ipod2{
-	x = 33, y= 20
-	wlan{ }
-}
-accesspoint ipod{
-	x = 135, y = 50 
-	wlan{ }
-}
-
-mobile phone1{wlan{}}
-mobile phone2{wlan{}}
-mobile phone3{wlan{}}
-mobile phone4{wlan{}}
-mobile phone5{wlan{}}
+mobile phone4 {wlan{}}
+mobile phone5 {wlan{}}
 mobile phone6 {wlan{}}
 mobile phone7 {wlan{}}
 mobile phone8 {wlan{}}
@@ -132,9 +122,3 @@ mobile phone96 {wlan{}}
 mobile phone97 {wlan{}}
 mobile phone98 {wlan{}}
 mobile phone99 {wlan{}}
-mobile phone100 {wlan{}}
-mobile phone101 {wlan{}}
-mobile phone102 {wlan{}}
-mobile phone103 {wlan{}}
-mobile phone104 {wlan{}}
-mobile phone105 {wlan{}}

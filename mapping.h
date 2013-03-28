@@ -4,14 +4,6 @@
 #define	COLOUR_OBJECTS	"#aaaaaa"
 #define	SCALE(p)	((int)((p) / mapscale))
 
-typedef struct {
-    char	*text;
-    double	x0;
-    double	y0;
-    double	x1;
-    double	y1;
-} OBJECT;
-
 //  READ THE OBJECTS ON OUR MAP FROM THE INDICATED FILE
 extern	void	readmap(const char *filenm);
 
@@ -35,3 +27,4 @@ extern bool insideObject(CnetPosition position, OBJECT *temp);
 
 //	RANDOMLY CHOOSE A DESTINATION INSIDE THE GIVEN OBJECT
 extern void random_choose(CnetPosition *newdest, OBJECT *object);
+

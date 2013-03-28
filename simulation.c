@@ -7,6 +7,8 @@
 #include "accesspoint.h"
 #include "mapping.h"
 #include "walking.h"
+#include "am.h"
+#include "coverage.h"
 
 #define	SIGNAL_LOSS_PER_OBJECT		12.0		// dBm
 
@@ -27,14 +29,24 @@ EVENT_HANDLER(reboot_node){
 
 		//  WE REQUIRE EACH NODE TO HAVE A DIFFERENT STREAM OF RANDOM NUMBERS
 		CNET_srand(nodeinfo.time_of_day.sec + nodeinfo.nodenumber);
+		printf("%s\n", ctime(&nodeinfo.time_of_day.sec));
 
-		if(nodeinfo.nodetype == NT_ACCESSPOINT){
+		if (nodeinfo.nodenumber == 0 && 
+		nodeinfo.nodetype == NT_ACCESSPOINT) {
+			printf("building area %d\n",get_building_area() );
+			printf("outdoor area %d\n",outdoor_area() );
+			CHECK(CNET_set_handler(EV_PHYSICALREADY, monitor, 0));
+		}
+
+		if(nodeinfo.nodetype == NT_ACCESSPOINT && 
+			nodeinfo.nodenumber != 0){
 			init_beacon();
 			start_beacon();
 			CHECK(CNET_set_handler(EV_PHYSICALREADY,	listenning, 0));
 
 		}
-		else{
+		
+		if (nodeinfo.nodetype == NT_MOBILE) {
 			init_walking();
 			start_walking();     
 
