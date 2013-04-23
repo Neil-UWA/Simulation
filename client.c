@@ -97,6 +97,7 @@ whichAP(void){
 /**
 * @brief show the  ap list. This function will be commented later
 */
+#ifdef DEBUG
 void 
 show(void){
 	if (count == 0) 
@@ -108,6 +109,7 @@ show(void){
 		}
 	}
 }
+#endif
 
 void
 disconnect(int	dst){
@@ -115,7 +117,9 @@ disconnect(int	dst){
 	size_t	length = sizeof(FRAME);
 
 	CHECK(CNET_write_direct(dst, (FRAME *)&frame, &length));
+	#ifdef DEBUG
 	printf("sent disconnect frame to the associated AP %d\n", dst);
+	#endif
 
 	associated	=	false;
 }
@@ -129,7 +133,9 @@ EVENT_HANDLER(talking)
 	CHECK(CNET_get_position(&current, NULL)); 
 
 	if (!foundAP) {
+		#ifdef DEBUG
 		printf("no signal here\n");
+		#endif
 	    TCLTK("$map create rect %d %d %d %d -width 1 -outline %s -fill %s",
 		    SCALE(current.x), SCALE(current.y), SCALE(current.x + 1), SCALE(current.y +1),
 		    COLOUR_OBJECTS, "red");
@@ -304,7 +310,9 @@ EVENT_HANDLER(listen_to_ap)
 		size_t	len = sizeof(cell);
 		CHECK(CNET_write_direct(0,(cell *)&state,&len ));
 
+#ifdef DEBUG
 		showFrame(frame);	
+		#endif
 	}
 
 }
@@ -337,7 +345,9 @@ EVENT_HANDLER(searching_ap)
 					addToAPList(frame, rxsignal);
 				}
 				times --;	
+				#ifdef DEBUG
 				show();
+				#endif
 			}
 			else {
 				foundAP	= true; //mark that we have found APs around the client

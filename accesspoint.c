@@ -32,12 +32,14 @@ EVENT_HANDLER(beaconning)
 	
 	if (CNET_carrier_sense(1)==0) {
 		CHECK(CNET_write_physical_reliable(link, (FRAME *)&frame, &length));
+		#ifdef DEBUG
 		printf("\nSENDING BEACONS\n");
+		#endif
 	}
 	
-	if (nodeinfo.nodenumber == 0) {
-		printf("%lf\n", coverage_rate());
-	}
+//	if (nodeinfo.nodenumber == 0) {
+//		printf("%lf\n", coverage_rate());
+//	}
 	beacon_tid = CNET_start_timer(EV_BEACON, FREQUENCY + CNET_rand()%1000,	0);
 }
 
@@ -66,7 +68,9 @@ EVENT_HANDLER(listenning)
 	frame.rxsignal	=	rxsignal;
 	frame.overload	=	get_overload();
 
+	#ifdef DEBUG
 	showFrame(frame);
+	#endif
 	printf("the total associated clients is %d\n", total_clients);
 
 	//this frame is for me and it comes from an mobile client

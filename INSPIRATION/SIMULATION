@@ -1,0 +1,34 @@
+compile		= "simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
+
+rebootargs	= "uwa.map"
+
+drawlinks	= false
+mapwidth	= 600
+mapheight	= 1200
+
+icontitle	= "%a"
+
+mapscale	= 0.3
+mapgrid		= 10
+
+
+accesspoint AP0 {
+	x=50, y=70
+	wlan{ }
+}
+
+accesspoint AP1 {
+	x=120, y=90
+	wlan{ }
+}
+
+mobile m0	{wlan{}}
+mobile m1	{wlan{}}
+mobile m2	{wlan{}}
+mobile m3	{wlan{}}
+mobile m4	{wlan{}}
+mobile m5	{wlan{}}
+mobile m6	{wlan{}}
+mobile m7	{wlan{}}
+mobile m8	{wlan{}}
+mobile m9	{wlan{}}

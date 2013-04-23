@@ -1,0 +1,51 @@
+Hi Chris,
+
+I have implemented a GA algorithm to find the near optimal positions for APs.
+
+the pseudo code is described as following:
+	init_population	--------- randomly generate a set of combinations of AP locations
+	evaluate_fitness --------- the objective function is based on how many path are covered by this combination.
+	repeat
+		selection  --------- this selects the combinations with good fitness, so that the good combinations can survive.
+							 Here, we use  roulete wheel selection. The combinations with higher fitness have more channce
+							 to be selected.
+							 
+		crossover  --------- randomly make pairs of combinations and do crossover. we only used the one-point crossover.
+							 this will generate offsprings from those pairs and the total population is still the same.
+		mutation  --------  some combinations can have mutation. only one AP location in a combination will mutate.
+		evaluate_fitness 
+		update_poplation
+	until some requirements reached
+
+I found this algorithm can usually find good combinations with MAX_POP size 300 quickly. And compared with the brute force
+search I last time wrote, the result is good.
+
+On the other hand, I think the brute force search version I wrote is also effective even though it ignores some other possible 
+combinations. Therefore, I made a slight change of it. When the program find two AP with the same coverage, it will randomly choose
+one of these APs' position.
+
+
+However, this version is a little big messy in compilation.
+
+To use the GA version.
+some preprocess defination:
+	MAX_POP --- the maximum number of combinations.
+	NUM_AP	--- the number of APs 
+	P_CROSSOVER --- the probability of crossover
+	P_MUTATION  --- the probability of mutation
+	MAX_ITERATION --- the maximum iterations
+
+to compile it :
+	gcc -std=c99 -DUSE_GA_OPTIMISE optimize.c
+to run :
+	./a.out nap nclient map
+	In fact, it doesn't need the number of clients. it has been defined by NUM_AP 
+
+To use the brute version.
+to compile it:
+	gcc -std=c99 -DUSE_BRUTE_SEARCH optimize.c
+to run :
+	./a.out nap nclient map
+
+both versions can specify what wlan model to use. By default, a basic wlan model will be used.
+However, you can specify -DUSE_WLAN_MODEL to use the free space wlan model in simulation when compile

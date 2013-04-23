@@ -1,0 +1,23 @@
+
+# Coordinates are in metres - close, but not exact
+#
+#	x0	y0	x1	y1
+object	50	50	120	90
+text	85	70	Building
+object  150 50  180 90
+#
+point	15	15	A
+point	160	15	B
+point	160	125	C
+point	15	125	D
+point	230	15	E
+point	230	125	F
+#
+path	D A
+path	A B
+path	B C
+path	C D
+path	B E
+path	F E
+path	F C
+#

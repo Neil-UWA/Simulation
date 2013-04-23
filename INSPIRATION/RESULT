@@ -1,0 +1,48 @@
+compile	=	"simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
+
+rebootargs	= "BASIC.map"
+
+drawlinks	= false
+mapwidth	= 450
+mapheight	= 300
+
+icontitle	= "%a"
+
+mapscale	= 0.3
+mapgrid	= 10
+
+accesspoint AP0 {
+	x = 51, y = 35 
+	wlan {}
+}
+
+accesspoint AP1 {
+	x = 216, y = 34 
+	wlan {}
+}
+
+accesspoint AP2 {
+	x = 66, y = 101 
+	wlan {}
+}
+
+accesspoint AP3 {
+	x = 184, y = 88 
+	wlan {}
+}
+
+accesspoint AP4 {
+	x = 123, y = 38 
+	wlan {}
+}
+
+mobile m0{wlan{}}
+mobile m1{wlan{}}
+mobile m2{wlan{}}
+mobile m3{wlan{}}
+mobile m4{wlan{}}
+mobile m5{wlan{}}
+mobile m6{wlan{}}
+mobile m7{wlan{}}
+mobile m8{wlan{}}
+mobile m9{wlan{}}

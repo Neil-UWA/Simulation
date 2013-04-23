@@ -1,0 +1,23 @@
+#!/bin/sh
+
+CNET="cnet"
+
+PARAMETERS1="-WNTqg -e5h"
+
+PARAMETERS2="-DNO_LOG -DMAX_CLIENTS_PER_AP=6  RESULT"
+
+#PARAMETERS2="-DNO_LOG   -DMAX_CLIENTS_PER_AP=100 -DWALK_OUTSIDE_RANDOMLY RESULT"
+
+
+# recompile everything, just once
+#
+rm -rf *.cnet *.o
+$CNET -nq `echo $PARAMETERS2`
+
+# announce the simulation, and run it 5 times
+#
+echo cnet $PARAMETERS1 $PARAMETERS2
+for i in 1 2 3 4 5
+do
+    $CNET `echo $PARAMETERS1 $PARAMETERS2` 
+done

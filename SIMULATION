@@ -10,23 +10,26 @@ mapscale = 0.3
 mapgrid = 1
 
 accesspoint uwa0 {
-x = 11, y = 42
+x = 0, y = 0
 wlan{}
 }
 accesspoint uwa1 {
-x = 71, y = 20
+x = 11, y = 42
 wlan{}
 }
 accesspoint uwa2 {
-x = 33, y = 20
+x = 71, y = 20
 wlan{}
 }
 accesspoint uwa3 {
+x = 33, y = 20
+wlan{}
+}
+accesspoint uwa4 {
 x = 135, y = 50
 wlan{}
 }
 
-mobile phone4 {wlan{}}
 mobile phone5 {wlan{}}
 mobile phone6 {wlan{}}
 mobile phone7 {wlan{}}

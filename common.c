@@ -29,6 +29,7 @@ initFrame(KIND kind, int dst, char	*msg)
 	return frame;
 }
 
+#ifdef DEBUG
 void
 showFrame(FRAME frame)
 {
@@ -40,6 +41,7 @@ showFrame(FRAME frame)
 //		printf("signal srenghth %.2lfDB\n",frame.rxsignal);
 //	}
 }
+#endif
 
 /**
 * @brief transmit a frame

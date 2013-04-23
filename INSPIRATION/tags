@@ -1,0 +1,129 @@
+APINFO	client.c	/^} APINFO;$/
+AP_CLEANUP_FREQ	client.h	/^#define	AP_CLEANUP_FREQ			5000000		\/\/ cleanup AP/
+ASSOCIATION	client.c	/^} ASSOCIATION;$/
+ASSOC_CANCEL_PERIOD	client.h	/^#define	ASSOC_CANCEL_PERIOD		2000000		\/\/ cancel /
+BASIC_TX_RADIUS	accesspoint.h	/^#define	BASIC_TX_RADIUS			60	\/\/ metres$/
+BEACON_FREQ	accesspoint.h	/^#define	BEACON_FREQ			100000  \/\/send beacon fram/
+BROADCAST	simulation.h	/^#define	BROADCAST		(-1)	\/\/ broadcasting $/
+CLIENTINFO	accesspoint.c	/^} CLIENTINFO;$/
+CLIENT_CLEANUP_FREQ	accesspoint.h	/^#define	CLIENT_CLEANUP_FREQ		10000000$/
+COLOUR_OBJECTS	optimize copy.c	/^#define	COLOUR_OBJECTS	"#aaaaaa"$/
+COLOUR_PATH	optimize copy.c	/^#define	COLOUR_PATH	"#80CC80"$/
+COMMENT	optimize copy.c	/^#define	COMMENT		'#'$/
+DATA_FREQ	client.h	/^#define	DATA_FREQ			1000000		\/\/ transmit every 1/
+DRAW_AP_available	accesspoint.c	/^static void DRAW_AP_available(void)$/
+DRAW_AP_full	accesspoint.c	/^static void DRAW_AP_full(void)$/
+DRAW_disassociation_ack	common.c	/^void DRAW_disassociation_ack(CnetAddr c, CnetAddr /
+DRAW_disassociation_req	common.c	/^void DRAW_disassociation_req(CnetAddr c, CnetAddr /
+DRAW_move_association	common.c	/^void DRAW_move_association(CnetAddr c, CnetAddr a,/
+DRAW_new_association	common.c	/^void DRAW_new_association(CnetAddr c, CnetAddr a, /
+DRAW_node_movement	client.c	/^void DRAW_node_movement(int nowx, int nowy)$/
+EPS	mapping.c	/^#define	EPS	0.0001$/
+EVENT_HANDLER	accesspoint.c	/^static EVENT_HANDLER(transmit_beacon)$/
+EV_ASSOC_CANCEL	simulation.h	/^#define	EV_ASSOC_CANCEL		EV_TIMER3$/
+EV_BEACON	simulation.h	/^#define EV_BEACON		EV_TIMER1$/
+EV_CLEANUP	simulation.h	/^#define	EV_CLEANUP		EV_TIMER4$/
+EV_DATA	simulation.h	/^#define EV_DATA			EV_TIMER2$/
+EV_WALKING	walking.h	/^#define	EV_WALKING		EV_TIMER9$/
+FOREACH_AP	client.c	/^#define	FOREACH_AP	for(a=0, ap=APs ; a<nAPs ; ++a,/
+FOREACH_CLIENT	accesspoint.c	/^#define	FOREACH_CLIENT	for(c=0, cp=clients ; c<ncl/
+FOREACH_OBJECT	mapping.c	/^#define	FOREACH_OBJECT	for(n=0, op=objects ; n<nob/
+FOR_INDIVIDUAL	optimize.c	/^#define FOR_INDIVIDUAL	for(i=0;i<MAX_POP;i++)$/
+FOR_LOOP	optimize copy.c	/^#define FOR_LOOP	for(i=0;i<WIDTH;i++)for(j=0;j<HEI/
+FOR_ME	simulation.h	/^#define	FOR_ME(frame)	(frame.header.dst == nodeinf/
+FRAME	simulation.h	/^} FRAME;$/
+HEADER	simulation.h	/^} HEADER;$/
+HEIGHT	optimize copy.c	/^#define HEIGHT	(1200)  \/\/ MAP HEIGHT$/
+INDIVIDUAL	optimize.h	/^} INDIVIDUAL;$/
+KIND	simulation.h	/^} KIND; $/
+LOCATION	optimize copy.c	/^} LOCATION;$/
+LOG	common.c	/^void LOG(const char *fmt, ...)$/
+MAP	mapping.h	/^\/\/  ONLY ONE NODE NEEDS TO DRAW THE MAP (typical/
+MAX_CLIENTS_PER_AP	accesspoint.h	/^#define	MAX_CLIENTS_PER_AP		3$/
+MAX_ITERATION	optimize.h	/^#define MAX_ITERATION 100	\/\/ the number of maxim/
+MAX_PAUSE	walking.c	/^#define	MAX_PAUSE	30		\/\/ in seconds$/
+MAX_PAYLOAD	simulation.h	/^#define	MAX_PAYLOAD		1024$/
+MAX_POP	optimize.h	/^#define MAX_POP 300			\/\/ the number of maximum p/
+MAX_SPEED	walking.c	/^#define	MAX_SPEED	5		\/\/ metres per WALK_FREQUENC/
+MAX_WALK_DIST	walking.c	/^#define	MAX_WALK_DIST	100		\/\/ maximum walk from /
+MIN_PAUSE	walking.c	/^#define	MIN_PAUSE	5		\/\/ in seconds$/
+Moptimize	optimize.c	/^int main (int argc, char const *argv[])$/
+Moptimize copy	optimize copy.c	/^int main (int argc, char const *argv[])$/
+NUM_AP	optimize.h	/^#define NUM_AP 2			\/\/ the number of maximum APs$/
+OBJECT	mapping.h	/^} OBJECT;$/
+OBJTYPE	mapping.h	/^} OBJTYPE;$/
+P_CROSSOVER	optimize.h	/^#define	P_CROSSOVER 0.6		\/\/probability of crosso/
+P_MUTATION	optimize.h	/^#define P_MUTATION 0.1 		\/\/probability of mutati/
+RADIUS	optimize copy.c	/^#define RADIUS (60)$/
+RADIUS2	optimize copy.c	/^#define RADIUS2	(RADIUS*RADIUS)$/
+SCALE	mapping.h	/^#define	SCALE(p)	((int)((p) \/ mapscale))$/
+SIGNAL_LOSS_PER_OBJECT	simulation.c	/^#define SIGNAL_LOSS_PER_OBJECT		12.0      \/\/ dBm/
+STATE	optimize copy.c	/^} STATE;$/
+STATS	simulation.h	/^} STATS;$/
+TX	common.c	/^void TX(KIND kind, CnetAddr dst)$/
+UNKNOWN	mapping.c	/^#define	UNKNOWN			(-1)$/
+USE_BASIC_WLAN_MODEL	simulation.c	/^#define	USE_BASIC_WLAN_MODEL		1$/
+WALK_FREQUENCY	walking.c	/^#define	WALK_FREQUENCY	1000000		\/\/ take a step e/
+WALK_ON_PATHS	walking.c	/^#define	WALK_ON_PATHS	1$/
+WIDTH	optimize copy.c	/^#define WIDTH	(600)   \/\/ MAP WIDTH $/
+_SIMULATION_H_	simulation.h	/^#define	_SIMULATION_H_$/
+add_object	mapping.c	/^static void add_object(OBJTYPE type, const char *s/
+associate_client	accesspoint.c	/^static bool associate_client(CnetAddr addr)$/
+basic_WLAN_model	simulation.c	/^static WLANRESULT basic_WLAN_model(WLANSIGNAL *sig/
+best_AP	client.c	/^static CnetAddr best_AP(void)$/
+best_individual	optimize.c	/^static INDIVIDUAL best_individual(INDIVIDUAL* popu/
+brute_optimise	optimize.c	/^void brute_optimise(int nap, int nclient, const ch/
+brute_search	optimize copy.c	/^static LOCATION brute_search()$/
+choose_outside_position	mapping.c	/^void choose_outside_position(CnetPosition *new, in/
+choose_path_position	mapping.c	/^void choose_path_position(CnetPosition *new, CnetP/
+covered_area	optimize copy.c	/^static void covered_area()$/
+covered_path	optimize.c	/^static int covered_path()$/
+crossover	optimize.c	/^static void crossover(INDIVIDUAL* population)$/
+disassociate_client	accesspoint.c	/^static bool disassociate_client(CnetAddr addr)$/
+distance	optimize copy.c	/^static double distance(int x0, int y0, int x1, int/
+draw_map	mapping.c	/^void draw_map(void)$/
+draw_walk	mapping.c	/^void draw_walk(CnetPosition *now, CnetPosition *ne/
+evaluate_fitness	optimize.c	/^static void evaluate_fitness(INDIVIDUAL* populatio/
+find_point	mapping.c	/^static bool find_point(const char *str, double *x,/
+fsl_WLAN_model	simulation.c	/^static WLANRESULT fsl_WLAN_model(WLANSIGNAL *sig)$/
+ga_optimise	optimize.c	/^static void ga_optimise(int nclient, const char* m/
+get_coverage	optimize copy.c	/^static int get_coverage(LOCATION location)$/
+get_relative_fitness	optimize.c	/^static double get_relative_fitness(INDIVIDUAL indi/
+init_accesspoint	accesspoint.c	/^void init_accesspoint(void)$/
+init_client	client.c	/^void init_client(void)$/
+init_map	optimize copy.c	/^static void init_map ()$/
+init_population	optimize.c	/^static void init_population(INDIVIDUAL* population/
+intersect	mapping.c	/^static bool intersect(	double x0, double y0, doubl/
+mutation	optimize.c	/^static void mutation(INDIVIDUAL* population)$/
+out_area	optimize copy.c	/^static void out_area()$/
+output	optimize.c	/^static void output(INDIVIDUAL individual, int ncli/
+prob	optimize copy.c	/^static bool prob()$/
+rand_location	optimize.c	/^static LOCATION rand_location()$/
+random_swap	optimize.c	/^static void random_swap(INDIVIDUAL* father, INDIVI/
+ratio	optimize copy.c	/^static double ratio()$/
+read_map	mapping.c	/^void read_map(const char *mapfile)$/
+received_beacon	client.c	/^static void received_beacon(CnetAddr addr, double /
+refresh_client	accesspoint.c	/^static void refresh_client(CnetAddr addr)$/
+refresh_map	optimize.c	/^static void refresh_map()$/
+rx_antenna_gain_dBi	optimize copy.c	/^#define rx_antenna_gain_dBi (1.14)$/
+rx_cable_loss_dBm	optimize copy.c	/^#define rx_cable_loss_dBm (0.0)	$/
+rx_sensitivity_dBm	optimize copy.c	/^#define rx_sensitivity_dBm (-82.0)  $/
+same_location	optimize.c	/^static bool same_location(LOCATION src, LOCATION t/
+selection	optimize.c	/^static void selection(INDIVIDUAL* population, INDI/
+set_covered	optimize copy.c	/^static void set_covered(LOCATION location){$/
+set_obstacle	optimize copy.c	/^static void set_obstacle(int x0, int y0, int x1, i/
+set_path	optimize.c	/^static void set_path(int x0, int y0, int x1, int y/
+set_path_covered	optimize.c	/^static void set_path_covered(LOCATION location)$/
+show_map	optimize.c	/^static void show_map()$/
+show_population	optimize.c	/^static void show_population(INDIVIDUAL* population/
+start_simulation	optimize copy.c	/^void start_simulation(int nap, int nclient, const /
+through_N_objects	mapping.c	/^int through_N_objects(CnetPosition S, CnetPosition/
+through_an_object	mapping.c	/^bool through_an_object(CnetPosition S, CnetPositio/
+total_path_area	optimize.c	/^static int total_path_area()$/
+trim	mapping.c	/^char *trim(char *line)$/
+tx_antenna_gain_dBi	optimize copy.c	/^#define	tx_antenna_gain_dBi (2.14)$/
+tx_cable_loss_dBm	optimize copy.c	/^#define tx_cable_loss_dBm (0.0)	$/
+tx_frequency_GHz	optimize copy.c	/^#define tx_frequency_GHz (2.45)	$/
+tx_power_dBm	optimize copy.c	/^#define tx_power_dBm (14.771)		$/
+update_population	optimize.c	/^static void update_population(INDIVIDUAL* old, IND/
+wlan_model	optimize copy.c	/^static bool wlan_model(int x0, int y0, int x1, int/

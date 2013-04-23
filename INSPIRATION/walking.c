@@ -5,14 +5,17 @@
  */
 #include <cnet.h>
 
-#include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
-#include "common.h"
 #include "mapping.h"
 #include "walking.h"
+
+#if	!defined(WALK_ON_PATHS) && !defined(WALK_OUTSIDE_RANDOMLY)
+#define	WALK_ON_PATHS	1
+#endif
+
 
 #define	WALK_FREQUENCY	1000000		// take a step every 1 second
 #define	MAX_SPEED	5		// metres per WALK_FREQUENCY
@@ -25,14 +28,14 @@ static	bool		paused		= true;
 
 static EVENT_HANDLER(walker)
 {
-	static	double		dx	= 0.0;
-	static	double		dy	= 0.0;
-	static	double		newx	= 0.0;
-	static	double		newy	= 0.0;
-	static	int		nsteps	= 0;
+	static	double	dx	= 0.0;
+	static	double	dy	= 0.0;
+	static	double	newx	= 0.0;
+	static	double	newy	= 0.0;
+	static	int	nsteps	= 0;
 
 	CnetPosition	now;
-	CnetTime		movenext;
+	CnetTime	movenext;
 
 	//  IF PAUSED, WE NEED TO CHOOSE A NEW DESTINATION AND WALKING SPEED
 	if(paused) {
@@ -42,22 +45,25 @@ static EVENT_HANDLER(walker)
 
 		//  CHOOSE A NEW DESTINATION THAT DOESN'T REQUIRE WALKING THROUGH A WALL!
 		do {
-			int			newspeed;
-			double		dist;
+			int	newspeed;
+			double	dist;
 
 			newdest	= now;
+#if	defined(WALK_ON_PATHS)
+			choose_path_position(&newdest, now);
+#else
 			do {
-				choose_position(&newdest, MAX_WALK_DIST);
+				choose_outside_position(&newdest, MAX_WALK_DIST);
 			} while(through_an_object(now, newdest));
+#endif
 
 			dx		= newdest.x - now.x;
 			dy		= newdest.y - now.y;
-			dist	= sqrt(dx*dx + dy*dy);	// only walking in 2D
+			dist		= sqrt(dx*dx + dy*dy);	// only walking in 2D
 
 			newspeed	= CNET_rand() % MAX_SPEED + 1;
 			nsteps	= dist / newspeed;
 		} while(nsteps < 3);		// ensure we'll take at least 3 steps
-		//draw_walk(&now, &newdest);
 
 		//  CALCULATE MOVEMENTS PER STEP
 		dx	= (dx / nsteps);
@@ -76,6 +82,7 @@ static EVENT_HANDLER(walker)
 		now.y	 = newy;
 		now.z	 = 0;
 		CHECK(CNET_set_position(now));
+		DRAW_node_movement(now.x, now.y);	// ADDED FOR Neil's SIMULATION
 		paused	= false;
 		--nsteps;
 		movenext = WALK_FREQUENCY;
@@ -95,23 +102,29 @@ static EVENT_HANDLER(walker)
 
 void init_walking(void)
 {
-	CnetPosition	start;
+	CnetPosition	bigbang = { 0, 0, 0 };
 
 	CHECK(CNET_set_handler(EV_WALKING, walker, 0));
 
-	choose_position(&start, 0);
-	CHECK(CNET_set_position(start));
+#if	defined(WALK_ON_PATHS)
+	choose_path_position(&bigbang, bigbang);
+#else
+	choose_outside_position(&bigbang, 0);
+#endif
+	CHECK(CNET_set_position(bigbang));
 }
 
 void start_walking(void)
 {
-	CNET_stop_timer(tid);
+	if(tid != NULLTIMER)
+	    CNET_stop_timer(tid);
 	tid	= CNET_start_timer(EV_WALKING, WALK_FREQUENCY, 0);
 }
 
 void stop_walking(void)
 {
-	CNET_stop_timer(tid);
+	if(tid != NULLTIMER)
+	    CNET_stop_timer(tid);
 	paused = true;
 }
 
@@ -119,63 +132,3 @@ bool am_walking(void)
 {
 	return (paused == false);
 }
-
-EVENT_HANDLER(walk_inside){
-	CnetPosition	current;
-	CnetPosition	dst;
-	OBJECT			temp;
-
-	memset(&current, 0, sizeof(CnetPosition));
-	memset(&dst, 0, sizeof(CnetPosition));
-
-	CHECK(CNET_get_position(&current, NULL));
-
-	printf("current position: (%d %d)\n", current.x, current.y);
-
-	if(insideObject(current, &temp)){
-
-		printf("I am inside (%lf %lf %lf %lf)\n", temp.x0, temp.y0,
-				temp.x1, temp.y1);
-		random_choose(&dst, &temp);
-
-		CHECK(CNET_set_position(dst));
-	}else{
-		printf("havent found the object\n");	
-	}
-
-	CNET_start_timer(EV_TIMER7, (CnetTime) 1000000, 0);
-}
-
-//EVENT_HANDLER(ap_walker){
-//	
-//
-//	CnetPosition current, new, dest;
-//	OBJECT	object;
-//
-//	CNET_get_position(&current, NULL);
-//	insideObject(current, &object);
-//
-//	fprintf(stdout, "object %lf %lf %lf %lf\n", object.x0, object.y0,
-//	object.x1, object.y1);
-///*
-//	ap moves clockwisely
-//		----------------------
-//		|		   |		 |
-//		|left_top  | r_top	 |
-//		|---------------------
-//		|left_bttom| r_bttom |
-//		|		   |		 |
-//		----------------------
-//*/
-//	if (current.x > object.x0 && current.x < (object.x1 - object.x0)/2 ) {
-//		if ( current.y > object.y0 && current.y < (object.y1 - object.y0)/2) {
-//			dest.x = (int) object.x1;
-//			dest.y = (int) object.y0;
-//		}
-//	}
-//
-//	if (current.x > (object.x1 - object.x0)/2 && current.x < object.x1) {
-//		
-//	}
-//
-//}

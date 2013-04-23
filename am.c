@@ -21,9 +21,12 @@ EVENT_HANDLER(monitor){
 
 	CHECK(CNET_read_physical(&link, object, &len));
 
+	// receive frames that contains cell state
 	if (len == cell_len) {
 		memcpy(&cellFrame, (cell*)object, cell_len);
+		#ifdef DEBUG
 		printf("received x: %d, y: %d, state: %d\n", cellFrame.current.x, cellFrame.current.y, cellFrame.cellState);
+		#endif
 		set_covered(cellFrame.current);
 	}
 	else {
