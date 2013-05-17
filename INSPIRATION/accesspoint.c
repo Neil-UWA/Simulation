@@ -13,7 +13,44 @@ static	int		nclients	= 0;
 static	int		c;
 static	CLIENTINFO	*cp;
 
+#define COUNT	1000
 
+#ifdef USE_CENTROID
+static CnetPosition	positions[COUNT];
+static int		counter = 0;
+//static	int		iter = 2;
+
+static CnetPosition centroid(void)
+{
+	int	sum_x=0;
+	int sum_y=0;
+	CnetPosition adjusted;
+
+		for (int i = 0; i <COUNT; i++) {
+			sum_x += positions[i].x;
+			sum_y += positions[i].y;
+		}
+
+		adjusted.x = sum_x/counter;
+		adjusted.y = sum_y/counter;
+		adjusted.z = 0;
+		
+		return adjusted;
+}
+static void DELETE_AP_range(void)
+{
+    TCLTK("$map delete AP%i", nodeinfo.address);
+}
+#endif
+
+static void DRAW_AP_range(CnetPosition now)
+{
+    TCLTK("$map create oval %d %d %d %d -width 2 -outline %s -tag AP%i",
+	    SCALE(now.x-BASIC_TX_RADIUS), SCALE(now.y-BASIC_TX_RADIUS),
+	    SCALE(now.x+BASIC_TX_RADIUS), SCALE(now.y+BASIC_TX_RADIUS),
+	    "purple", nodeinfo.address);
+
+}
 /**
 * @brief  sending beacon frames 10 times every second
 */
@@ -164,6 +201,18 @@ static EVENT_HANDLER(receive_frame)
 	}
 	break;
     }
+#ifdef USE_CENTROID
+	if (counter < COUNT) {
+		positions[counter] = frame.header.src_position;
+		counter += 1;
+	}
+	else
+	{
+		DELETE_AP_range();
+		CNET_set_position(centroid());	
+		DRAW_AP_range(centroid());
+	}
+#endif
 }
 
 //  -------------------------------------------------------------------
@@ -173,11 +222,7 @@ void init_accesspoint(void)
     CnetPosition now;
 
     CHECK(CNET_get_position(&now, NULL));
-    TCLTK("$map create oval %d %d %d %d -width 2 -outline %s",
-	    SCALE(now.x-BASIC_TX_RADIUS), SCALE(now.y-BASIC_TX_RADIUS),
-	    SCALE(now.x+BASIC_TX_RADIUS), SCALE(now.y+BASIC_TX_RADIUS),
-	    "purple");
-
+	DRAW_AP_range(now);
     CHECK(CNET_set_handler(EV_BEACON, transmit_beacon, 0));    
     CNET_start_timer(EV_BEACON, BEACON_FREQ + CNET_rand()%10000,  0);
 

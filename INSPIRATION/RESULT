@@ -1,10 +1,10 @@
 compile	=	"simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
 
-rebootargs	= "BASIC.map"
+rebootargs	= "../uwa.map"
 
 drawlinks	= false
-mapwidth	= 450
-mapheight	= 300
+mapwidth	= 800
+mapheight	= 800
 
 icontitle	= "%a"
 
@@ -12,27 +12,27 @@ mapscale	= 0.3
 mapgrid	= 10
 
 accesspoint AP0 {
-	x = 51, y = 35 
+	x = 142, y = 93 
 	wlan {}
 }
 
 accesspoint AP1 {
-	x = 216, y = 34 
+	x = 4, y = 75 
 	wlan {}
 }
 
 accesspoint AP2 {
-	x = 66, y = 101 
+	x = 69, y = 210 
 	wlan {}
 }
 
 accesspoint AP3 {
-	x = 184, y = 88 
+	x = 302, y = 81 
 	wlan {}
 }
 
 accesspoint AP4 {
-	x = 123, y = 38 
+	x = 106, y = 120 
 	wlan {}
 }
 
