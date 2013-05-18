@@ -1,38 +1,63 @@
 compile	=	"simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm"
 
-rebootargs	= "../uwa.map"
+rebootargs	= "uwa.map"
 
 drawlinks	= false
-mapwidth	= 800
-mapheight	= 800
+mapwidth	= 500
+mapheight	= 500
 
 icontitle	= "%a"
 
-mapscale	= 0.3
+mapscale	= 0.6
 mapgrid	= 10
 
 accesspoint AP0 {
-	x = 142, y = 93 
+	x = 194, y = 336 
 	wlan {}
 }
 
 accesspoint AP1 {
-	x = 4, y = 75 
+	x = 338, y = 315 
 	wlan {}
 }
 
 accesspoint AP2 {
-	x = 69, y = 210 
+	x = 112, y = 249 
 	wlan {}
 }
 
 accesspoint AP3 {
-	x = 302, y = 81 
+	x = 466, y = 175 
 	wlan {}
 }
 
 accesspoint AP4 {
-	x = 106, y = 120 
+	x = 9, y = 424 
+	wlan {}
+}
+
+accesspoint AP5 {
+	x = 176, y = 81 
+	wlan {}
+}
+
+accesspoint AP6 {
+	x = 36, y = 332 
+	wlan {}
+}
+
+accesspoint AP7 {
+	x = 254, y = 81 
+	wlan {}
+}
+
+accesspoint AP8 {
+	x = 286, y = 228 
+	wlan {}
+}
+
+accesspoint AP9 {
+	x = 70, y = 115 
 	wlan {}
 }
 
@@ -46,3 +71,23 @@ mobile m6{wlan{}}
 mobile m7{wlan{}}
 mobile m8{wlan{}}
 mobile m9{wlan{}}
+mobile m10{wlan{}}
+mobile m11{wlan{}}
+mobile m12{wlan{}}
+mobile m13{wlan{}}
+mobile m14{wlan{}}
+mobile m15{wlan{}}
+mobile m16{wlan{}}
+mobile m17{wlan{}}
+mobile m18{wlan{}}
+mobile m19{wlan{}}
+mobile m20{wlan{}}
+mobile m21{wlan{}}
+mobile m22{wlan{}}
+mobile m23{wlan{}}
+mobile m24{wlan{}}
+mobile m25{wlan{}}
+mobile m26{wlan{}}
+mobile m27{wlan{}}
+mobile m28{wlan{}}
+mobile m29{wlan{}}
