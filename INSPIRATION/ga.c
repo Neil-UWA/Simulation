@@ -1,7 +1,6 @@
 #include "optimize.h"
 #include "ga.h"  
 
-// #ifdef USE_GA_OPTIMISE
 //-------------------------------------------------------------//
 //	GA simulation starts here								   //
 //-------------------------------------------------------------// 
@@ -266,7 +265,7 @@ static INDIVIDUAL best_individual(INDIVIDUAL* population)
 	int i;           
 
 	FILE *fp = NULL;
-	fp = fopen("../log1", "a+");
+	fp = fopen("log1", "a+");
 
 	memset(&best, 0, sizeof(INDIVIDUAL));
 	FOR_INDIVIDUAL{
@@ -288,7 +287,7 @@ static void output(INDIVIDUAL individual, int nclient,
 {
 	FILE	*fp = NULL;
 
-	if((fp = fopen("../RESULT", "w"))){
+	if((fp = fopen("RESULT", "w"))){
 		fprintf(fp, "compile	=	\"simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm\"\n\n");
 		fprintf(fp, "rebootargs	= \"%s\"\n\n", mapfile);
 		fprintf(fp, "drawlinks	= false\n");
@@ -319,6 +318,7 @@ void ga_optimise(int nclient, const char* mapfile)
 {
 	int t = 0;
 	int index = 0;
+	double ratio;
 	INDIVIDUAL best,temp;
 
 	init_population(population);
@@ -339,10 +339,11 @@ void ga_optimise(int nclient, const char* mapfile)
 		mutation(new_population);
 		update_population(population, new_population);
 		evaluate_fitness(population);
+		
 		elitist(population);
 
 		temp = best_individual(population);
-		printf("Generation [%d]: best combination with coverage %lf \n", t, temp.fitness);
+		printf("Generation [%d]: best combination with coverage %.2lf \n", t, temp.fitness);
 		for(int i = 0; i < NUM_AP; ++i)
 		{
 			printf("\t%d %d\n", temp.locations[i].x, temp.locations[i].y);
@@ -350,12 +351,14 @@ void ga_optimise(int nclient, const char* mapfile)
 		if (best.fitness < temp.fitness) {
 			best = temp;
 			index = t;
+			ratio = temp.fitness*1.0/total_path_area();
 		}
 
 		t++;
 	}
 
-	printf("Best combination occured in generation [%d] with coverage: %lf\n", index, best.fitness);
+	printf("Best combination occured in generation [%d] with coverage: %.2lf\n", index, best.fitness);
+	printf("final path coverage ratio: %.2lf\n", ratio);
 	for(int i = 0; i < NUM_AP; ++i)
 	{
 		printf("%d %d\n", best.locations[i].x, best.locations[i].y);
@@ -364,6 +367,4 @@ void ga_optimise(int nclient, const char* mapfile)
 	output(best, nclient, mapfile);
 
 }
-// #endif
-
 //-------------------------------------------------------------//

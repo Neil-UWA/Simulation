@@ -187,6 +187,36 @@ void set_path(int x0, int y0, int x1, int y1)
 	}
 }
 
+//get the area of paths
+int total_path_area(void)
+{
+	int i, j;
+	int total = 0;
+	FOR_LOOP{
+		if (fixed_map[i][j] == PATH) 
+			total += 1;			
+	}
+	return total;
+}
+
+//get how many paths are covered
+int covered_path(void)
+{
+	int i, j;
+	int covered = 0;
+	FOR_LOOP{
+		if (map[i][j] == COVERED) 
+			covered +=1;
+	}
+
+	return covered;
+}
+
+double covered_ratio(void)
+{
+	return (double)covered_path()/(double)total_path_area();
+}
+
 #define	FOREACH_OBJECT	for(n=0, op=objects ; n<nobjects ; ++n, ++op)
 
 static void add_object(OBJTYPE type, const char *str,
@@ -341,37 +371,6 @@ void read_map(const char* file)
 		fclose(fp);
 	}
 }
-
-//get the area of paths
-int total_path_area(void)
-{
-	int i, j;
-	int total = 0;
-	FOR_LOOP{
-		if (fixed_map[i][j] == PATH) 
-			total += 1;			
-	}
-	return total;
-}
-
-//get how many paths are covered
-int covered_path(void)
-{
-	int i, j;
-	int covered = 0;
-	FOR_LOOP{
-		if (map[i][j] == COVERED) 
-			covered +=1;
-	}
-
-	return covered;
-}
-
-double covered_ratio(void)
-{
-	return (double)covered_path()/(double)total_path_area();
-}
-
 
 void usage(void)
 {

@@ -26,11 +26,6 @@
 #define RADIUS (60)
 #endif
 
-
-#if !defined(USE_GA_OPTIMISE) && !defined (USE_BRUTE_SEARCH)
-#define USE_GA_OPTIMISE 1
-#endif
-
 #define RADIUS2	(RADIUS*RADIUS)
 
 #define FOR_LOOP	for(i=0;i<WIDTH;i++)for(j=0;j<HEIGHT;j++)
@@ -69,19 +64,19 @@ typedef struct _LOCATION {
 } LOCATION;     
 
 typedef enum {
-    T_OBJ	= 0,
-    T_TEXT,
-    T_POINT,
-    T_PATH
+	T_OBJ	= 0,
+	T_TEXT,
+	T_POINT,
+	T_PATH
 } OBJTYPE;
 
 typedef struct {
-    OBJTYPE	type;
-    char	*str;
-    int		x0;
-    int		y0;
-    int		x1;
-    int		y1;
+	OBJTYPE	type;
+	char	*str;
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
 } OBJECT;
 
 typedef struct _INDIVIDUAL {

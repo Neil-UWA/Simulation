@@ -19,7 +19,7 @@ static LOCATION brute_search()
 
 	FOR_LOOP{
 		//INSDE A BUILDING 
-		if (map[i][j] == OBSTACLE) {
+		if (map[i][j] != AP) {
 			temp.x = i;
 			temp.y = j;
 			temp.coverage = get_coverage(temp);
@@ -35,7 +35,6 @@ static LOCATION brute_search()
 
 	//ONCE WE FIND THE BEST LOCATION, SET AP THERE
 	map[best.x][best.y] = AP;
-//	set_covered(best);
 	set_path_covered(best);
 
 	return best;
@@ -47,13 +46,12 @@ static LOCATION brute_search()
  * @param nap number of APs
  */
 void brute_optimise(int nap, int nclient, const char *file)
-//void brute_optimise(double nap, int nclient, const char *file)
 {
 	FILE *fp = NULL;
 	int index	= 0;
 	LOCATION best;
 
-	if((fp = fopen("../RESULT", "w"))){
+	if((fp = fopen("RESULT", "w"))){
 		fprintf(fp, "compile	=	\"simulation.c mapping.c walking.c accesspoint.c client.c common.c -lm\"\n\n");
 		fprintf(fp, "rebootargs	= \"%s\"\n\n", file);
 		fprintf(fp, "drawlinks	= false\n");
@@ -65,7 +63,6 @@ void brute_optimise(int nap, int nclient, const char *file)
 		fprintf(fp, "mapgrid	= 10\n\n");
 		
 		printf("cover rate :\n", covered_ratio());
-//		while(covered_ratio()<nap){
 		while(index < nap){
 			best = brute_search();
 			
@@ -76,7 +73,7 @@ void brute_optimise(int nap, int nclient, const char *file)
 			memset(&best, 0, sizeof(LOCATION));
 			index ++;
 		}
-		printf("the final coverage rate is %lf\n", covered_ratio());
+		printf("the final coverage rate is %.2lf\n", covered_ratio());
 
 		for (int i = 0; i < nclient; i++) {
 			fprintf(fp, "mobile m%d{wlan{}}\n", i);
