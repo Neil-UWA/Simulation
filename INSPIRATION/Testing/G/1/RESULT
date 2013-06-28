@@ -12,57 +12,27 @@ mapscale	= 0.6
 mapgrid	= 10
 
 accesspoint AP0 {
-	x = 364, y = 335 
+	x = 80, y = 221 
 	wlan {}
 }
 
 accesspoint AP1 {
-	x = 192, y = 196 
+	x = 131, y = 87 
 	wlan {}
 }
 
 accesspoint AP2 {
-	x = 40, y = 344 
+	x = 338, y = 182 
 	wlan {}
 }
 
 accesspoint AP3 {
-	x = 43, y = 45 
+	x = 245, y = 382 
 	wlan {}
 }
 
 accesspoint AP4 {
-	x = 38, y = 164 
-	wlan {}
-}
-
-accesspoint AP5 {
-	x = 352, y = 139 
-	wlan {}
-}
-
-accesspoint AP6 {
-	x = 88, y = 424 
-	wlan {}
-}
-
-accesspoint AP7 {
-	x = 157, y = 379 
-	wlan {}
-}
-
-accesspoint AP8 {
-	x = 114, y = 57 
-	wlan {}
-}
-
-accesspoint AP9 {
-	x = 460, y = 59 
-	wlan {}
-}
-
-accesspoint AP10 {
-	x = 294, y = 371 
+	x = 80, y = 388 
 	wlan {}
 }
 

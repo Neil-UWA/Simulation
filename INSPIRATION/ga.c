@@ -295,14 +295,13 @@ static void output(INDIVIDUAL individual, int nclient,
 		fprintf(fp, "mapheight	= %d\n\n", HEIGHT);
 
 		fprintf(fp, "icontitle	= \"%%a\"\n\n");
-		fprintf(fp, "mapscale	= 0.3\n");
+		fprintf(fp, "mapscale	= 0.6\n");
 		fprintf(fp, "mapgrid	= 10\n\n");
 
 
 		for(int j = 0; j < NUM_AP; ++j)
 		{
 			fprintf(fp, "accesspoint AP%d {\n\tx = %d, y = %d \n\twlan {}\n}\n\n", j, individual.locations[j].x, individual.locations[j].y);
-			fflush(fp);
 		}
 
 		for(int i = 0; i < nclient; ++i)
@@ -316,11 +315,13 @@ static void output(INDIVIDUAL individual, int nclient,
 
 void ga_optimise(int nclient, const char* mapfile)
 {
+	clock_t	start, end;
 	int t = 0;
 	int index = 0;
 	double ratio;
 	INDIVIDUAL best,temp;
 
+	start = clock();
 	init_population(population);
 	evaluate_fitness(population);
 
@@ -346,7 +347,7 @@ void ga_optimise(int nclient, const char* mapfile)
 		printf("Generation [%d]: best combination with coverage %.2lf \n", t, temp.fitness);
 		for(int i = 0; i < NUM_AP; ++i)
 		{
-			printf("\t%d %d\n", temp.locations[i].x, temp.locations[i].y);
+			printf("\tAP %d: (%d, %d)\n", i, temp.locations[i].x, temp.locations[i].y);
 		}
 		if (best.fitness < temp.fitness) {
 			best = temp;
@@ -356,13 +357,14 @@ void ga_optimise(int nclient, const char* mapfile)
 
 		t++;
 	}
-
+	end = clock();
 	printf("Best combination occured in generation [%d] with coverage: %.2lf\n", index, best.fitness);
 	printf("final path coverage ratio: %.2lf\n", ratio);
 	for(int i = 0; i < NUM_AP; ++i)
 	{
 		printf("%d %d\n", best.locations[i].x, best.locations[i].y);
 	}                                                              
+	printf("Time used: %f\n", ((double) end - start)/CLOCKS_PER_SEC);
 	
 	output(best, nclient, mapfile);
 

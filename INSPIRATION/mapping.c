@@ -93,6 +93,7 @@ void draw_map(void)
 		    SCALE(op->x0-2), SCALE(op->y0-2), SCALE(op->x1+2), SCALE(op->y1+2),
 		    COLOUR_PATH, COLOUR_PATH);
 	    break;
+	default:
 	    break;
         }
     }
@@ -356,7 +357,6 @@ void random_choose(CnetPosition *newdest, OBJECT *object){
 	  newdest->x  = CNET_rand() % mapsize.x;
 	  newdest->y  = CNET_rand() % mapsize.y;
 	}while(!inside(*newdest,*object));
-	printf("the random dst is %d %d\n", newdest->x, newdest->y);
 }
 
 /** 

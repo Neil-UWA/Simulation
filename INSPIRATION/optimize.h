@@ -13,9 +13,9 @@
 #include "ga.h"
 #include "brute.h"
 
-#ifndef WIDTH && HEIGHT 
-#define WIDTH	(800)   // MAP WIDTH 
-#define HEIGHT	(800)  // MAP HEIGHT
+#if !defined(WIDTH) && !defined(HEIGHT)
+#define WIDTH	(800)   
+#define HEIGHT	(800)  
 #endif
 
 #define	COMMENT		'#'
@@ -63,6 +63,11 @@ typedef struct _LOCATION {
 	int coverage;
 } LOCATION;     
 
+typedef struct _GL {
+	int ncolours;
+	unsigned char *rs, *gs, *bs;
+} GLOBALS;
+extern GLOBALS g;
 typedef enum {
 	T_OBJ	= 0,
 	T_TEXT,
@@ -86,7 +91,8 @@ typedef struct _INDIVIDUAL {
 } INDIVIDUAL;
 
 extern bool prob(void); 
-extern int	through_N_objects(int x0, int y0, int x1, int y1);
+extern int	through_N_objects(int x0, int y0, int x1, int y1);  
+extern bool wlan_model(int x0, int y0, int x1, int y1);
 extern void init_map (void);
 extern int	get_coverage(LOCATION location);
 extern void set_path_covered(LOCATION location);

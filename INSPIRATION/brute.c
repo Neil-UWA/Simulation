@@ -43,10 +43,11 @@ static LOCATION brute_search()
 /**
  * @brief start simulation and produce a topology file
  *
- * @param nap number of APs
  */
 void brute_optimise(int nap, int nclient, const char *file)
+//void brute_optimise(double rate, int nclient, const char *file)
 {
+	clock_t start, end;
 	FILE *fp = NULL;
 	int index	= 0;
 	LOCATION best;
@@ -58,11 +59,12 @@ void brute_optimise(int nap, int nclient, const char *file)
 		fprintf(fp, "mapwidth	= %d\n", WIDTH);
 		fprintf(fp, "mapheight	= %d\n\n", HEIGHT);
 
-		fprintf(fp, "icontitle	= \"\%\%a\"\n\n");
-		fprintf(fp, "mapscale	= 0.3\n");
+		fprintf(fp, "icontitle	= \"\%%a\"\n\n");
+		fprintf(fp, "mapscale	= 0.6\n");
 		fprintf(fp, "mapgrid	= 10\n\n");
 		
-		printf("cover rate :\n", covered_ratio());
+		start = clock();
+//		while(covered_ratio() < rate){
 		while(index < nap){
 			best = brute_search();
 			
@@ -73,13 +75,16 @@ void brute_optimise(int nap, int nclient, const char *file)
 			memset(&best, 0, sizeof(LOCATION));
 			index ++;
 		}
+
 		printf("the final coverage rate is %.2lf\n", covered_ratio());
+		printf("Number of APs needs : %d\n", index);
 
-		for (int i = 0; i < nclient; i++) {
+		for (int i = 0; i < nclient; i++) 
 			fprintf(fp, "mobile m%d{wlan{}}\n", i);
-		}
 	}
-
+	end = clock();
+	
+	printf("Time used: %.2f secs\n", ((double)end - start)/CLOCKS_PER_SEC);
 	fflush(fp);
 	fclose(fp);
 }

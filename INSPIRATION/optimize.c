@@ -8,7 +8,7 @@ static	int	npaths		= 0;
 int	map[WIDTH][HEIGHT];
 int	fixed_map[WIDTH][HEIGHT];
 
-
+extern char* strdup(const char *s);
 bool prob(void)
 {
 	return rand()< RAND_MAX*0.5;
@@ -49,7 +49,7 @@ static double distance(int x0, int y0, int x1, int y1)
  *
  * @return 
  */
-static bool wlan_model(int x0, int y0, int x1, int y1)
+bool wlan_model(int x0, int y0, int x1, int y1)
 {
 	double TXtotal, FSL, budget, rx_strength_dBm;
 	double metres;

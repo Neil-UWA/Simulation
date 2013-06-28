@@ -7,7 +7,14 @@ WiFi wifi = {
 	.tx_antenna_gain_dBi = 2.14,
 	.tx_cable_loss_dBm = 0.0,
 
-	.rx_antenna_gain_dBi = 1.14,
+	.rx_antenna_gain_dBi = 2.14,
 	.rx_cable_loss_dBm = 0.0,
 	.rx_sensitivity_dBm = (-82.0),
+};
+
+GLOBALS g = {
+	.ncolours = 0,
+	.rs = NULL,
+	.gs = NULL,
+	.bs = NULL,
 };

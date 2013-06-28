@@ -14,11 +14,11 @@
 #endif 
 
 #ifndef MAX_ITERATION			
-#define MAX_ITERATION 100	// the number of maximum iteration
+#define MAX_ITERATION 1000	// the number of maximum iteration
 #endif
 
 #ifndef NUM_AP					 	
-#define NUM_AP 50			// the number of maximum APs
+#define NUM_AP 150			// the number of maximum APs
 #endif
 
 

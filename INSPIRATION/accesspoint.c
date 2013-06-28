@@ -1,4 +1,6 @@
-#include "accesspoint.h"
+#include "accesspoint.h"   
+#include <math.h>   
+#include <stdbool.h>
 
 typedef struct {
     CnetAddr		addr;
@@ -37,20 +39,21 @@ static CnetPosition centroid(void)
 		
 		return adjusted;
 }
+
 static void DELETE_AP_range(void)
 {
     TCLTK("$map delete AP%i", nodeinfo.address);
 }
 #endif
 
-static void DRAW_AP_range(CnetPosition now)
-{
-    TCLTK("$map create oval %d %d %d %d -width 2 -outline %s -tag AP%i",
-	    SCALE(now.x-BASIC_TX_RADIUS), SCALE(now.y-BASIC_TX_RADIUS),
-	    SCALE(now.x+BASIC_TX_RADIUS), SCALE(now.y+BASIC_TX_RADIUS),
-	    "purple", nodeinfo.address);
-
-}
+//static void DRAW_AP_range(CnetPosition now)
+//{
+//    TCLTK("$map create oval %d %d %d %d -width 2 -outline %s -tag AP%i",
+//	    SCALE(now.x-BASIC_TX_RADIUS), SCALE(now.y-BASIC_TX_RADIUS),
+//	    SCALE(now.x+BASIC_TX_RADIUS), SCALE(now.y+BASIC_TX_RADIUS),
+//	    "purple", nodeinfo.address);
+//
+//}
 /**
 * @brief  sending beacon frames 10 times every second
 */
@@ -215,14 +218,14 @@ static EVENT_HANDLER(receive_frame)
 #endif
 }
 
-//  -------------------------------------------------------------------
-
+//  -------------------------------------------------------------------     
 void init_accesspoint(void)
 {
     CnetPosition now;
 
-    CHECK(CNET_get_position(&now, NULL));
-	DRAW_AP_range(now);
+    CHECK(CNET_get_position(&now, NULL)); 
+	
+//	DRAW_AP_range(now);
     CHECK(CNET_set_handler(EV_BEACON, transmit_beacon, 0));    
     CNET_start_timer(EV_BEACON, BEACON_FREQ + CNET_rand()%10000,  0);
 
